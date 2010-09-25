@@ -1,0 +1,1379 @@
+//THE RULES FILE FOR THE ENGLISH LANGUAGE
+
+//ELLIPSES
+rules ellipsis
+	rule *, .content[dotatend], "<.content>.."
+	rule *, *, "<.content>..."
+
+//QUESTIONS
+rules question_want_to
+	rule *, .action, "Do you want to <.action:useinfinitivenoactor>?"
+	rule *, *, "Do you want to..."
+
+	//rule *, .action, "{does_actor} want to <.action:useinfinitivenoactor>?"
+	//rule *, *, "Does ? want to..."
+
+	//rule does_actor, (.action.actor[thirdperson] & (.action.actor[singular] | !(.action.actor.quantity[plural))), "Does <.action.actor>"
+	//rule does_actor, *, "Do <.action.actor>"
+
+
+rules question_do_what_with
+	rule *, (.actor & .with), "What should <.actor> do with <.with>?"
+	rule *, .actor, "What should <.actor> do with..."
+	rule *, .with, "What should be done with <.with>?"
+	rule *, *, "What should ? do with..."
+
+
+//COMMAND LABELS
+rules command_label
+	//dealing with conditions
+	rule dealwithcondition, .circumstances.condition, " <.circumstances.condition>"
+	rule dealwithcondition, *, ""
+
+	//dealing with locations
+	rule dealwithlocation, .circumstances.location, " <.circumstances.location>"
+	rule dealwithlocation, *, ""
+
+	//dealing with special times
+	rule dealwithtime, .circumstances.time[showtime], " <.circumstances.time>"
+	rule dealwithtime, *, ""
+
+	rule *, *, "<+=:nocapsorperiod>"
+
+	rule nocapsorperiod, *, "<.action:imperative>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+
+//COMMANDS
+rules command
+	super command_label
+	rule *, .please, "Please <=:nocapsorperiod>."
+	rule *, *, "<+=:nocapsorperiod>."
+
+
+//THE RULES FOR STATEMENTS
+rules statement
+	tag dotatend
+
+	//dealing with conditions
+	rule dealwithcondition, .circumstances.condition, " <.circumstances.condition>"
+	rule dealwithcondition, *, ""
+
+	//dealing with locations
+	rule dealwithlocation, .circumstances.location, " <.circumstances.location>"
+	rule dealwithlocation, *, ""
+
+	//dealing with special times
+	rule dealwithtime, .circumstances.time[showtime], " <.circumstances.time>"
+	rule dealwithtime, *, ""
+
+	rule *, *, "<+=:nocapsorperiod>."
+
+	//here, gerund
+	rule nocapsorperiod, .circumstances.time[currently]^.location[here], "this is where <.action:currently>{dealwithtime}{dealwithcondition}"
+
+	//here, present perfect
+	rule nocapsorperiod, .circumstances.time[past_affecting_present]^.location[here], "this is where <.action:past_affecting_present>{dealwithtime}{dealwithcondition}"
+
+	//here, normal
+	rule nocapsorperiod, .circumstances.location[here], "this is where <.action>{dealwithtime}{dealwithcondition}"
+
+	//present perfect
+	rule nocapsorperiod, .circumstances.time[past_affecting_present], "<.action:past_affecting_present>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//gerund
+	rule nocapsorperiod, .circumstances.time[currently], "<.action:currently>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//present tense
+	rule nocapsorperiod, *, "<.action>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//nocapsorperiod_gerund
+	rule nocapsorperiod_gerund, .location[here], "this is where <.action:currently>{dealwithtime}{dealwithcondition}"
+	rule nocapsorperiod_gerund, *, "<.action:currently>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//PARTICIPLE VERSION
+	rule participle, .location[here], "<.action:participle_notarget> here{dealwithtime}{dealwithcondition}"
+	rule participle, *, "<.action:participle_notarget>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+
+//ABILITY STATEMENT
+rules ability_statement
+	tag dotatend
+
+	//dealing with conditions
+	rule dealwithcondition, .circumstances.condition, " <.circumstances.condition>"
+	rule dealwithcondition, *, ""
+
+	//dealing with locations
+	rule dealwithlocation, .circumstances.location, " <.circumstances.location>"
+	rule dealwithlocation, *, ""
+
+	//dealing with special times
+	rule dealwithtime, .circumstances.time[showtime], " <.circumstances.time>"
+	rule dealwithtime, *, ""
+
+	rule *, *, "<+=:nocapsorperiod>."
+
+	//here, past
+	rule nocapsorperiod, .circumstances.location[here]^.time[past_affecting_present], "this is where <.action:could>{dealwithtime}{dealwithcondition}"
+
+	//here
+	rule nocapsorperiod, .circumstances.location[here], "this is where <.action:can>{dealwithtime}{dealwithcondition}"
+
+	//past
+	rule nocapsorperiod, .circumstances.time[past_affecting_present], "<.action:could>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//normal
+	rule nocapsorperiod, *, "<.action:can>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//nocapsorperiod_gerund
+	rule nocapsorperiod_gerund, .location[here], "<.action:can> here{dealwithtime}{dealwithcondition}"
+	rule nocapsorperiod_gerund, *, "<.action:can>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//PARTICIPLE VERSION
+	rule participle, .location[here], "can be <.action:participle_notarget> here{dealwithtime}{dealwithcondition}"
+	rule participle, *, "can be <.action:participle_notarget>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+
+//PROPERTY STATEMENT
+rules property_statement
+	tag dotatend
+
+	//dealing with conditions
+	rule dealwithcondition, .circumstances.condition, " <.circumstances.condition>"
+	rule dealwithcondition, *, ""
+
+	//dealing with locations
+	rule dealwithlocation, .circumstances.location, " <.circumstances.location>"
+	rule dealwithlocation, *, ""
+
+	//dealing with special times
+	rule dealwithtime, .circumstances.time[showtime], " <.circumstances.time>"
+	rule dealwithtime, *, ""
+
+	rule *, *, "<+=:nocapsorperiod>."
+
+	//here
+	rule nocapsorperiod, .circumstances.location[here], "this is where <.thing> {is} <.property>{dealwithtime}{dealwithcondition}"
+
+	//normal
+	rule nocapsorperiod, *, "<.thing> {is} <.property>{dealwithlocation}{dealwithtime}{dealwithcondition}"
+
+	//all the wonderful conjugations of the verb "to be"
+	rule is, (.circumstances.time[past_affecting_present] & .thing[thirdperson] & (.thing[singular] | !(.thing.quantity[plural]))), "has been"
+	rule is, .circumstances.time[past_affecting_present], "have been"
+
+	rule is, (.circumstances.time[currently] & .thing[firstperson] & (.thing[singular] | !(.thing.quantity[plural]))), "am being"
+	rule is, (.circumstances.time[currently] & .thing[thirdperson] & (.thing[singular] | !(.thing.quantity[plural]))), "is being"
+	rule is, .circumstances.time[currently], "are being"
+
+	rule is, (.thing[firstperson] & (.thing[singular] | !(.thing.quantity[plural]))), "am"
+	rule is, (.thing[thirdperson] & (.thing[singular] | !(.thing.quantity[plural]))), "is"
+	rule is, *, "are"
+
+
+//CIRCUMSTANCES
+rules when_statement
+	rule *, (.when & ^.time[when]), "and <.when:nocapsorperiod>"
+	rule *, .when, "when <.when:nocapsorperiod>"
+	rule *, *, "when.."
+
+
+//LOCATIONS
+rules here
+	rule *, *, "here"
+
+//the location in
+rules in
+	rule *, .what, "in <.what>"
+	rule *, *, "in"
+
+rules foreground
+	rule *, *, "in the foreground"
+
+
+//TIMES
+rules when
+	tag showtime
+	rule *, .when, "when <.when:nocapsorperiod>"
+	rule *, *, "when.."
+
+rules before
+	tag showtime
+	rule *, .before, "before <.before:nocapsorperiod_gerund>"
+	rule *, *, "before.."
+
+rules after
+	tag showtime
+	rule *, .after, "after <.after:nocapsorperiod_gerund>"
+	rule *, *, "after.."
+
+rules always
+	tag showtimebeforeverb
+	rule *, *, "always"
+
+rules after_time
+	tag showtime
+	rule *, .time, "after <.time>"
+	rule *, *, "after.."
+
+rules during
+	tag showtime
+	rule *, .during, "while <.during:currently_active>"
+	rule *, *, "while.."
+
+//TIME QUANTITIES
+rules minutes
+	rule *,  .number[1], "one minute"
+	rule *, *, "<.number> minutes"
+
+
+//VERBS
+rules verb
+	//At the top level, we simply look at word order and pass on invocation messages.
+
+	//CATCH ENTRY POINTS
+	//*, passive
+	rule *, (.target & !(.actor)), "{passive_target}{timebeforeverb_}{passive_v_normal}{aftertarget}{for}{modifier}"
+	//*, active
+	rule *, *, "{actor}{timebeforeverb_}{v_normal}{target}{aftertarget}{for}{modifier}"
+
+	//can, passive
+	rule can, (.target & !(.actor)), "{passive_target}{timebeforeverb_}{passive_v_can}{aftertarget}{for}{modifier}"
+	//can, active
+	rule can, *, "{actor}{timebeforeverb_}{v_can}{target}{aftertarget}{for}{modifier}"
+
+	//could, passive
+	rule could, (.target & !(.actor)), "{passive_target}{timebeforeverb_}{passive_v_could}{aftertarget}{for}{modifier}"
+	//could, active
+	rule could, *, "{actor}{timebeforeverb_}{v_could}{target}{aftertarget}{for}{modifier}"
+
+	//past_affecting_present, passive
+	rule past_affecting_present, (.target & !(.actor)), "{passive_target}{timebeforeverb_}{passive_v_pap}{aftertarget}{for}{modifier}"
+	//past_affecting_present, active
+	rule past_affecting_present, *, "{actor}{timebeforeverb_}{v_pap}{target}{aftertarget}{for}{modifier}"
+
+	//currently, passive
+	rule currently, (.target & !(.actor)), "{passive_target}{timebeforeverb_}{passive_v_curr}{aftertarget}{for}{modifier}"
+	//currently, active
+	rule currently, *, "{actor}{timebeforeverb_}{v_curr}{target}{aftertarget}{for}{modifier}"
+
+	//infinitive, passive
+	rule useinfinitive, (.target & !(.actor)), "{passive_target}{timebeforeverb_}{infinitive}{aftertarget}{for}{modifier}"
+	//infinitive, active
+	rule useinfinitive, *, "{actor}{timebeforeverb_}{infinitive}{target}{aftertarget}{for}{modifier}"
+
+	//imperative
+	rule imperative, .negation, "{timebeforeverb_}don't {infinitive}{target}{aftertarget}{for}{modifier}"
+	rule imperative, *, "{timebeforeverb_}{infinitive}{target}{aftertarget}{for}{modifier}"
+
+
+	//ENTRY POINTS FOR FRAGMENTARY REQUESTS
+	//useinfinitivenoactor
+	rule useinfinitivenoactor, .negation, "{timebeforeverb_}not {infinitive}{target}{aftertarget}{for}{modifier}"
+	rule useinfinitivenoactor, *, "{timebeforeverb_}{infinitive}{target}{aftertarget}{for}{modifier}"
+
+	//noactor
+	rule noactor, *, "{timebeforeverb_}{v_normal}{target}{aftertarget}{for}{modifier}"
+
+	//can_noactor
+	rule can_noactor, *, "{timebeforeverb_}{v_can}{target}{aftertarget}{for}{modifier}"
+
+	//could_noactor
+	rule could_noactor, *, "{timebeforeverb_}{v_could}{target}{aftertarget}{for}{modifier}"
+
+	//past_affecting_present_noactor
+	rule past_affecting_present_noactor, *, "{timebeforeverb_}{v_pap}{target}{aftertarget}{for}{modifier}"
+
+	//currently_noactor
+	rule currently_noactor, *, "{timebeforeverb_}{v_curr}{target}{aftertarget}{for}{modifier}"
+
+	//participle_notarget
+	rule participle_notarget, .negation, "{timebeforeverb_}not {participle}{aftertarget}{byactor}{for}{modifier}"
+	rule participle_notarget, *, "{timebeforeverb_}{participle}{aftertarget}{byactor}{for}{modifier}"
+
+	//imperative_notarget
+	rule imperative_notarget, .negation, "{timebeforeverb_}don't {infinitive}{aftertarget}{for}{modifier}"
+	rule imperative_notarget, *, "{timebeforeverb_}{infinitive}{aftertarget}{for}{modifier}"
+
+	//currently_active
+	rule currently_active, *, "{timebeforeverb_}{actor}{v_curr}{target}{aftertarget}{for}{modifier}"
+
+
+
+	//ACTORS, TARGETS, FORS, MODIFIERS
+	//actor
+	rule actor, .actor, "<.actor> "
+	rule actor, *, ""
+
+	//target
+	rule target, .target, " <.target>"
+	rule target, *, ""
+
+	//passive target - the only difference here is that it's got a space *after* the target
+	rule passive_target, .target, "<.target> "
+	rule passive_target, *, ""
+
+	//for
+	rule for, .for, " for <.for>"
+	rule for, *, ""
+
+	//by actor
+	rule byactor, .actor, " by <.actor>"
+	rule byactor, *, ""
+
+	//modifier
+	rule modifier, .modifier, " <.modifier>"
+	rule modifier, *, ""
+
+	//time indication just before verb
+	rule timebeforeverb_, ^.circumstances.time[showtimebeforeverb], "<^.circumstances.time> "
+	rule timebeforeverb_, *, ""
+
+
+	//VERB REALISATION	
+	//v_normal: normal verb conjugation
+	rule v_normal, .negation, "{actor_not_do} {infinitive}"
+	rule v_normal, *, "{normal}"
+
+	//passive_v_normal: passive verb conjugation: this means we have the "to be" verb bound to the target
+	rule passive_v_normal, .negation, "{target_not_be} {participle}"
+	rule passive_v_normal, *, "{target_be} {participle}"
+
+	//v_can: "can <verb>" ability-statement
+	rule v_can, .negation, "can't {infinitive}"
+	rule v_can, *, "can {infinitive}"
+
+	//passive_v_can
+	rule passive_v_can, .negation, "can't be {participle}"
+	rule passive_v_can, *, "can be {participle}"
+
+	//v_could "could <verb>" past ability-statement
+	rule v_could, .negation, "couldn't {infinitive}"
+	rule v_could, *, "could {infinitive}"
+
+	//passive_v_could
+	rule passive_v_could, .negation, "couldn't be {participle}"
+	rule passive_v_could, *, "could be {participle}"
+
+	//v_pap (past_affecting_present) : present perfect
+	rule v_pap, .negation, "{actor_not_have} {participle}"
+	rule v_pap, *, "{actor_have} {participle}"
+
+	//passive_v_pap
+	rule passive_v_pap, .negation, "{target_not_have} been {participle}"
+	rule passive_v_pap, *, "{target_have} been {participle}"
+
+	//v_curr : gerund
+	rule v_curr, .negation, "{actor_not_be}{gerund}"
+	rule v_curr, *, "{actor_be}{gerund}"
+
+	//passive_v_curr
+	rule passive_v_curr, .negation, "{target_not_be} being {participle}"
+	rule passive_v_curr, *, "{target_be} being {participle}"
+
+
+	//HELPER VERBS
+	//target_be: the verb "to be", conjugated according to the target
+	rule target_be, (.target[firstperson] & (.target[singular] | !(.target.quantity[plural]))), "am"
+	rule target_be, (.target[thirdperson] & (.target[singular] | !(.target.quantity[plural]))), "is"
+	rule target_be,*, "are"
+
+	//target_not_be: the verb "not to be", conjugated according to the target
+	rule target_not_be, (.target[firstperson] & (.target[singular] | !(.target.quantity[plural]))), "am not"
+	rule target_not_be, (.target[thirdperson] & (.target[singular] | !(.target.quantity[plural]))), "isn't"
+	rule target_not_be,*, "aren't"
+
+	//target_have
+	rule target_have, (.target[thirdperson] & (.target[singular] | !(.target.quantity[plural]))), "has"
+	rule target_have, *, "have"
+
+	//target_not_have
+	rule target_not_have, (.target[thirdperson] & (.target[singular] | !(.target.quantity[plural]))), "hasn't"
+	rule target_not_have, *, "haven't"
+
+	//actor_not_do: the verb "not to do" conjugated according to the actor
+	rule actor_not_do, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "doesn't"
+	rule actor_not_do,*, "don't"
+
+	//actor_be: the verb "to be", conjugated according to the actor
+	rule actor_be, (!(.actor) & !(.target)), ""
+	rule actor_be, (.actor[firstperson] & (.actor[singular] | !(.actor.quantity[plural]))), "am "
+	rule actor_be, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "is "
+	rule actor_be, .actor, "are "
+	rule actor_be, *, ""
+
+	//actor_not_be: the verb "not to be", conjugated according to the actor
+	rule actor_not_be, (!(.actor) & !(.target)), "not "
+	rule actor_not_be, (.actor[firstperson] & (.actor[singular] | !(.actor.quantity[plural]))), "am not "
+	rule actor_not_be, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "isn't "
+	rule actor_not_be, .actor, "aren't "
+	rule actor_not_be, *, "not "
+
+	//actor_have
+	rule actor_have, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "has"
+	rule actor_have, *, "have"
+
+	//actor_not_have
+	rule actor_not_have, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "hasn't"
+	rule actor_not_have, *, "haven't"
+
+
+
+//ACTION OR
+rules action_or
+	rule *, *, "<.action1> or <.action2>"
+	rule can, *, "<.action1:can> or <.action2:can>"
+	rule could, *, "<.action1:could> or <.action2:could>"
+	rule past_affecting_present, *, "<.action1:past_affecting_present> or <.action2:past_affecting_present>"
+	rule currently, *, "<.action1:currently> or <.action2:currently>"
+	rule useinfinitivenoactor, *, "<action1:useinfinitivenoactor> or <.action2:useninfinitivenoactor>"
+	rule imperative, *, "<.action1:imperative> or <.action2:imperative>"
+
+rules action_or_with_same_actor
+	rule *, *, "<.action1> or <.action2:noactor>"
+	rule can, *, "<.action1:can> or <.action2:can_noactor>"
+	rule could, *, "<.action1:could> or <.action2:could_noactor>"
+	rule past_affecting_present, *, "<.action1:past_affecting_present> or <.action2:past_affecting_present_noactor>"
+	rule currently, *, "<.action1:currently> or <.action2:currently_noactor>"
+	rule useinfinitivenoactor, *, "<action1:useinfinitivenoactor> or <.action2:useninfinitivenoactor>"
+	rule imperative, *, "<.action1:imperative> or <.action2:imperative>"
+
+rules action_or_with_same_target
+	super same_target_helpers
+	rule *, *, "<.action1.target> {be_target1}<.action1:participle_notarget> or {be_target2}<.action2:participle_notarget>"
+	rule can, *, "<.action1.target> {can_be_target1}<.action1:participle_notarget> or {can_be_target2}<.action2:participle_notarget>"
+	rule could, *, "<.action1.target> {could_be_target1}<.action1:participle_notarget> or {could_be_target2}<.action2:participle_notarget>"
+	rule past_affecting_present, *, "<.action1.target> {have_been_target1}<.action1:participle_notarget> or {have_been_target2}<.action2:participle_notarget>"
+	rule currently, *, "<.action1.target> {be_being_target1}<.action1:participle_notarget> or {be_being_target2}<.action2:participle_notarget>"
+	rule useinfinitivenoactor, *, "<.action1:useinfinitivenoactor> or <.action2:useinfinitivenoactor> <.action1.target>"
+	rule imperative, *, "<.action1:imperative_notarget> or <.action2:imperative_notarget> <.action1.target>"
+
+
+//ACTION AND
+rules action_and
+	rule *, *, "<.action1> and <.action2>"
+	rule can, *, "<.action1:can> and <.action2:can>"
+	rule could, *, "<.action1:could> and <.action2:could>"
+	rule past_affecting_present, *, "<.action1:past_affecting_present> and <.action2:past_affecting_present>"
+	rule currently, *, "<.action1:currently> and <.action2:currently>"
+	rule useinfinitivenoactor, *, "<action1:useinfinitivenoactor> and <.action2:useninfinitivenoactor>"
+	rule imperative, *, "<.action1:imperative> and <.action2:imperative>"
+
+
+rules action_and_with_same_actor
+	rule *, *, "<.action1> and <.action2:noactor>"
+	rule can, *, "<.action1:can> and <.action2:can_noactor>"
+	rule could, *, "<.action1:could> and <.action2:could_noactor>"
+	rule past_affecting_present, *, "<.action1:past_affecting_present> and <.action2:past_affecting_present_noactor>"
+	rule currently, *, "<.action1:currently> and <.action2:currently_noactor>"
+	rule useinfinitivenoactor, *, "<action1:useinfinitivenoactor> and <.action2:useninfinitivenoactor>"
+	rule imperative, *, "<.action1:imperative> and <.action2:imperative>"
+
+
+rules action_and_with_same_target
+	super same_target_helpers
+	rule *, *, "<.action1.target> {be_target1}<.action1:participle_notarget> and {be_target2}<.action2:participle_notarget>"
+	rule can, *, "<.action1.target> {can_be_target1}<.action1:participle_notarget> and {can_be_target2}<.action2:participle_notarget>"
+	rule could, *, "<.action1.target> {could_be_target1}<.action1:participle_notarget> and {could_be_target2}<.action2:participle_notarget>"
+	rule past_affecting_present, *, "<.action1.target> {have_been_target1}<.action1:participle_notarget> and {have_been_target2}<.action2:participle_notarget>"
+	rule currently, *, "<.action1.target> {be_being_target1}<.action1:participle_notarget> and {be_being_target2}<.action2:participle_notarget>"
+	rule useinfinitivenoactor, *, "<.action1:useinfinitivenoactor> and <.action2:useinfinitivenoactor> <.action1.target>"
+	rule imperative, *, "<.action1:imperative_notarget> and <.action2:imperative_notarget> <.action1.target>"
+
+rules same_target_helpers
+	//helpers
+
+	//be_target1, negated
+	rule be_target1, (.action1.negation & .action1.target[firstperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "am not "
+	rule be_target1, (.action1.negation & .action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "isn't "
+	rule be_target1, .action1.negation, "aren't "
+
+	//be_target1
+	rule be_target1, (.action1.target[firstperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "am "
+	rule be_target1, (.action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "is "
+	rule be_target1, *, "are "
+
+	//be_target2, negated
+	rule be_target2, (.action2.negation & .action1.target[firstperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "am not "
+	rule be_target2, (.action2.negation & .action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "isn't "
+	rule be_target2, .action2.negation, "aren't "
+
+	//be_target2
+	rule be_target2, (.action1.target[firstperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "am "
+	rule be_target2, (.action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "is "
+	rule be_target2, *, "are "
+
+	//can_be_target1
+	rule can_be_target1, .action1.negation, "can't be "
+	rule can_be_target1, *, "can be "
+
+	//can_be_target2
+	rule can_be_target2, .action2.negation, "can't be "
+	rule can_be_target2, *, "can be "
+
+	//could_be_target1
+	rule could_be_target1, .action1.negation, "couldn't be "
+	rule could_be_target1, *, "could be "
+
+	//could_be_target2
+	rule could_be_target2, .action2.negation, "couldn't be "
+	rule could_be_target2, *, "could be "
+
+	//have_been_target1, negation
+	rule have_been_target1, (.action1.negation & .action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "hasn't been "
+	rule have_been_target1, .action1.negation, "haven't been "
+
+	//have_been_target1
+	rule have_been_target1, (.action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "has been "
+	rule have_been_target1, *, "have been "
+
+	//have_been_target2, negation
+	rule have_been_target2, (.action2.negation & .action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "hasn't been "
+	rule have_been_target2, .action2.negation, "haven't been "
+
+	//have_been_target2
+	rule have_been_target2, (.action1.target[thirdperson] & (.action1.target[singular] | !(.action1.target.quantity[plural]))), "has been "
+	rule have_been_target2, *, "have been "
+
+	//be_being_target1
+	rule be_being_target1, *, "{be_target1}being "
+
+	//be_being_target2
+	rule be_being_target2, *, "{be_target1}being "
+
+
+
+
+//REGULAR VERBS
+//The realisation: only third person singular (he eats) has a different conjugation in English. Rejoice in simplicity.
+rules regularverb
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "{stem}s"
+	rule normal, *, "{stem}"
+	rule gerund, *, "{stem}ing"
+	rule infinitive, *, "{stem}"
+	rule aftertarget, *, ""
+
+
+//RULES FOR ACTIONS
+rules find
+	super regularverb
+	rule stem, *, "find"
+	rule participle, *, "found"
+
+rules load
+	super regularverb
+	rule stem, *, "load"
+	rule participle, *, "loaded"
+
+rules configure
+	super regularverb
+	rule stem, *, "configure"
+	rule participle, *, "configured"
+	rule gerund, *, "configuring"
+
+rules define
+	super regularverb
+	rule stem, *, "define"
+	rule participle, *, "defined"
+	rule gerund, *, "defining"
+
+rules save
+	super regularverb
+	rule stem, *, "save"
+	rule participle, *, "saved"
+	rule gerund, *, "saving"
+	rule aftertarget, .as, " as <.as>"
+
+rules select
+	super regularverb
+	rule stem, *, "select"
+	rule participle, *, "selected"
+	rule gerund, *, "selecting"
+
+rules modify
+	super regularverb
+	rule stem, *, "modify"
+	rule participle, *, "modified"
+	rule gerund, *, "modifying"
+
+rules take_effect
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "takes effect"
+	rule normal, *, "take effect"
+	rule gerund, *, "taking effect"
+	rule infinitive, *, "take effect"
+	rule aftertarget, *, ""
+
+rules want_to
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "wants to <.action:useinfinitivenoactor>"
+	rule normal, *, "want to <.action:useinfinitivenoactor>"
+	rule gerund, *, "wanting to <.action:useinfinitivenoactor>"
+	rule participle, *, "wanted to <.action:useinfinitivenoactor>"
+	rule infinitive, *, "want to <.action:useinfinitivenoactor>"
+	rule aftertarget, *, ""
+	rule stem, *, "{infinitive}"
+
+rules print
+	super regularverb
+	rule stem, *, "print"
+	rule participle, *, "printed"
+	rule gerund, *, "printing"
+
+	rule aftertarget, .from, " from <.from>"
+
+rules store
+	super regularverb
+	rule stem, *, "store"
+	rule participle, *, "stored"
+	rule gerund, *, "storing"
+
+rules add_to
+	super regularverb
+	rule stem, *, "add"
+	rule participle, *, "added"
+	rule gerund, *, "adding"
+
+	rule aftertarget, .to, " to <.to>"
+
+rules click
+	super regularverb
+	rule stem, *, "click"
+	rule participle, *, "clicked"
+	rule gerund, *, "clicking"
+
+rules buy
+	super regularverb
+	rule stem, *, "buy"
+	rule participle, *, "bought"
+	rule gerund, *, "buying"
+
+rules download
+	super regularverb
+	rule stem, *, "download"
+	rule participle, *, "downloaded"
+	rule gerund, *, "downloading"
+
+rules check
+	super regularverb
+	rule stem, *, "check"
+	rule participle, *, "checked"
+	rule gerund, *, "checking"
+
+rules try
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "tries"
+	rule normal, *, "try"
+	rule participle, *, "tried"
+	rule gerund, *, "trying"
+	rule infinitive, *, "try"
+	rule aftertarget, *, ""
+
+rules compare
+	super regularverb
+	rule stem, *, "compare"
+	rule participle, *, "compared"
+	rule gerund, *, "comparing"
+
+rules allow
+	super regularverb
+	rule stem, *, "allow"
+	rule participle, *, "allowed"
+	rule gerund, *, "allowing"
+
+rules use
+	super regularverb
+	rule stem, *, "use"
+	rule participle, *, "used"
+	rule gerund, *, "using"
+
+rules increase
+	super regularverb
+	rule stem, *, "increase"
+	rule participle, *, "increased"
+	rule gerund, *, "increasing"
+
+rules edit
+	super regularverb
+	rule stem, *, "edit"
+	rule participle, *, "edited"
+	rule gerund, *, "editing"
+
+rules create
+	super regularverb
+	rule stem, *, "create"
+	rule participle, *, "created"
+	rule gerund, *, "creating"
+
+rules close
+	super regularverb
+	rule stem, *, "close"
+	rule participle, *, "closed"
+	rule gerund, *, "closing"
+
+rules reload
+	super regularverb
+	rule stem, *, "reload"
+	rule participle, *, "reloaded"
+	rule gerund, *, "reloading"
+
+rules interpret
+	super regularverb
+	rule stem, *, "interpret"
+	rule participle, *, "interpreted"
+	rule gerund, *, "interpreting"
+	rule aftertarget, .as, " as <.as>"
+
+rules undo
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "undoes"
+	rule normal, *, "undo"
+	rule participle, *, "undid"
+	rule gerund, *, "undoing"
+	rule infinitive, *, "undo"
+	rule aftertarget, *, ""
+
+rules remove
+	super regularverb
+	rule stem, *, "remove"
+	rule participle, *, "removed"
+	rule gerund, *, "removing"
+	rule aftertarget, .from, " from <.from>"
+
+rules delete
+	super regularverb
+	rule stem, *, "delete"
+	rule participle, *, "deleted"
+	rule gerund, *, "deleting"
+
+rules browse
+	super regularverb
+	rule stem, *, "browse"
+	rule participle, *, "browsed"
+	rule gerund, *, "browsing"
+
+rules block
+	super regularverb
+	rule stem, *, "block"
+	rule participle, *, "blocked"
+	rule gerund, *, "blocking"
+
+rules start
+	super regularverb
+	rule stem, *, "start"
+	rule participle, *, "started"
+	rule gerund, *, "starting"
+
+rules show
+	super regularverb
+	rule stem, *, "show"
+	rule participle, *, "shown"
+	rule gerund, *, "showing"
+
+rules scale_down
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "scales down"
+	rule normal, *, "scale down"
+	rule participle, *, "scaled down"
+	rule gerund, *, "scaling down"
+	rule infinitive, *, "scale down"
+	rule aftertarget, .to_fit_into, " to fit into <.to_fit_into>"
+	rule stem, *, "scale down"
+
+rules replace
+	super regularverb
+	rule stem, *, "replace"
+	rule participle, *, "replaced"
+	rule gerund, *, "replacing"
+
+rules perform
+	super regularverb
+	rule stem, *, "perform"
+	rule participle, *, "performed"
+	rule gerund, *, "performing"
+
+rules cancel
+	super regularverb
+	rule stem, *, "cancel"
+	rule participle, *, "cancelled"
+	rule gerund, *, "cancelling"
+
+rules copy
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "copies"
+	rule normal, *, "copy"
+	rule participle, *, "copied"
+	rule gerund, *, "copying"
+	rule infinitive, *, "copy"
+	rule aftertarget, .to, " to <.to>"
+	rule stem, *, "copy"
+
+rules keep_in
+	super regularverb
+	rule stem, *, "keep"
+	rule participle, *, "kept"
+	rule gerund, *, "keeping"
+	rule aftertarget, .location, " in <.location>"
+
+rules read
+	super regularverb
+	rule stem, *, "read"
+	rule participle, *, "read"
+	rule gerund, *, "reading"
+
+rules play_music
+	super regularverb
+	rule stem, *, "play"
+	rule participle, *, "played"
+	rule gerund, *, "playing"
+
+rules search
+	super verb
+	rule normal, (.actor[thirdperson] & (.actor[singular] | !(.actor.quantity[plural]))), "searches"
+	rule normal, *, "search"
+	rule participle, *, "searched"
+	rule gerund, *, "searching"
+	rule infinitive, *, "search"
+	rule aftertarget, .search_for, " for <. search_for >"
+	rule stem, *, "search"
+
+
+//LITERAL THING
+rules literal_thing
+	super noun
+	tag thirdperson
+	rule stem, *, "<.name>"
+
+
+//THING AND THING
+rules thing_and
+	tag thirdperson
+	rule *, *, "<.thing1> and <.thing2>"
+
+//LABELS
+rules text_label
+	rule *, *, "<.content>"
+
+rules meaning_label
+	rule *, *, "<.content>"
+
+//NOUN
+rules noun
+	tag thirdperson
+
+	//dealing with labels, which are appended at the end
+	rule *, .label, "{main} <.label>"
+	rule *, *, "{main}"
+
+	//articles
+	rule article, (.quantity[various] & .which[your]), "your various "
+	rule article, (.quantity[all] & .which[your]), "all your "
+	rule article, .which[your], "your "
+
+	rule article, (.quantity[various] & .which[following]), "the various following "
+	rule article, (.quantity[all] & .which[following]), "all the following "
+	rule article, .which[following], "the following "
+
+	rule article, (.quantity[various] & .which[this]), "these various "
+	rule article, (.quantity[various]), "various "
+	rule article, (.quantity[all] & .which[this]), "all these "
+	rule article, (.quantity[several] & .which[this], "these "
+	rule article, .which[this], "this "
+	rule article, (.quantity[all] & .which[specific]), "all the "
+	rule article, .quantity[all], "all "
+	rule article, (.quantity[several] & .which[specific]), "the "
+	rule article, .quantity[several], ""
+	rule article, .which[specific], "the "
+	rule article, .which[unspecific], "a "
+	rule article, *, ""
+
+	rule article_vowel, .which[unspecific], "an "
+	rule article_vowel, *, "{article}"
+
+	//with a property and a type
+	rule main, (.type & .property & .quantity[plural] & !(=[singular])), "{article}{property}<.type> {plural}{afterproperty}{dealwithlocation}"
+	rule main, (.type & .property[vowel] & !(.property[afternoun])), "{article_vowel}{property}<.type> {stem}{dealwithlocation}"
+	rule main, (.type[vowel] & .property[afternoun]), "{article_vowel}<.type> {stem}{afterproperty}{dealwithlocation}"
+	rule main, (.type & .property), "{article}{property}<.type> {stem}{afterproperty}{dealwithlocation}"
+
+	//with a property
+	rule main, (.property & .quantity[plural] & !(=[singular])), "{article}{property}{plural}{afterproperty}{dealwithlocation}"
+	rule main, (.property[vowel] & !(.property[afternoun])), "{article_vowel}{property}{stem}{dealwithlocation}"
+	rule main, (.property[afternoun] & =[vowel]), "{article_vowel}{stem}{afterproperty}{dealwithlocation}"
+	rule main, .property, "{article}{property}{stem}{afterproperty}{dealwithlocation}"
+
+	//with a type
+	rule main, (.type & .quantity[plural] & !(=[singular])), "{article}<.type> {plural}{dealwithlocation}"
+	rule main, .type[vowel], "{article_vowel}<.type> {stem}{dealwithlocation}"
+	rule main, .type, "{article}<.type> {stem}{dealwithlocation}"
+
+	//vanilla
+	rule main, (.quantity[plural] & !(=[singular])), "{article}{plural}{dealwithlocation}"
+	rule main, =[vowel], "{article_vowel}{stem}{dealwithlocation}"
+	rule main, *, "{article}{stem}{dealwithlocation}"
+
+	//plural rule, which can be overridden by words with non-standard plurals
+	rule plural, *, "{stem}s"
+
+	//dealing with locations
+	rule dealwithlocation, .location, " <.location>"
+	rule dealwithlocation, *, ""
+
+	//before-noun properties
+	rule property, (.property & !(.property[afternoun])), "<.property> "
+	rule property, *, ""
+
+	//after-noun properties
+	rule afterproperty, .property[afternoun], " <.property>"
+	rule afterproperty, *, ""
+
+
+//QUANTITIES
+rules several
+	tag plural
+
+rules all
+	tag plural
+
+rules various
+	tag plural
+
+
+//YOU
+rules you
+	tag secondperson
+	rule *, *, "you"
+
+
+//NOUNS
+rules document
+	super noun
+	rule stem, *, "document"
+
+rules internet
+	super noun
+	tag vowel
+	rule stem, *, "Internet"
+
+rules search_engine
+	super noun
+	rule stem, *, "search engine"
+
+rules setting
+	super noun
+	rule stem, *, "setting{for}"
+	rule plural, *, "settings{for}"
+
+	rule for, .for, " for <.for>"
+	rule for, *, ""
+
+rules proxy
+	super noun
+	rule plural, *, "proxies"
+	rule stem, *, "proxy"
+
+rules access
+	tag singular
+	tag thirdperson
+	//this entirely overrides normal noun behaviour: "the" or "an" access, or "accesses" don't really make sense anyway.
+	//to
+	rule *, (.to & .type & .property), "<.property> <.type> access to <.to>"
+	rule *, (.to & .type), "<.type> access to <.to>"
+	rule *, (.to & .property), "<.property> access to <.to>"
+	rule *, .to, "access to <.to>"
+
+	//vanilla
+	rule *, (.type & .property), "<.property> <.type> access"
+	rule *, .type, "<.type> access"
+	rule *, .property, "<.property> access"
+	rule *, *, "access"
+
+rules data
+	super noun
+	tag singular
+
+	rule plural, .about, "data about <.about>"
+	rule stem, .about, "data about <.about>"
+
+	//"data" IS plural. nevermind...
+	rule plural, *, "data"
+	rule stem, *, "data"
+
+rules information
+	super noun
+	tag singular
+
+	rule plural, .about, "information about <.about>"
+	rule stem, .about, "information about <.about>"
+
+	rule plural, *, "information"
+	rule stem, *, "information"
+
+rules source
+	super noun
+	rule stem, *, "source"
+
+rules format
+	super noun
+	rule stem, *, "format"
+
+rules option
+	super noun
+	rule stem, *, "option"
+
+rules formula
+	super noun
+	rule stem, *, "formula"
+
+rules spreadsheet
+	super noun
+	rule stem, *, "spreadsheet"
+
+rules location_of
+	super noun
+	rule stem, *, "{plural}"
+
+	//past_affecting_present
+	rule plural, (.time[past_affecting_present] & .of[thirdperson] & (=[singular] | !(.quantity[plural]))), "where <.of> has been"
+	rule plural, (.time[past_affecting_present] & .of), "where <.of> have been"
+	rule plural, .time[past_affecting_present], "where ? has been"
+
+	//present tense
+	rule plural, (.of[firstperson] &  (=[singular] | !(.quantity[plural]))), "where <.of> am"
+	rule plural, (.of[thirdperson] &  (=[singular] | !(.quantity[plural]))), "where <.of> is"
+	rule plural, .of, "where <.of> are"
+	rule plural, *, "where ? is"
+
+rules area
+	super noun
+	tag vowel
+	rule stem, *, "area"
+
+rules music
+	super noun
+	tag singular
+	rule stem, *, "music"
+	rule plural, *, "music"
+
+rules shopping_cart
+	super noun
+	rule stem, *, "shopping cart"
+
+rules button
+	super noun
+	tag labelatfront
+	rule stem, .command, ""<+.command:nocapsorperiod>" button"
+	rule stem, *, "button"
+
+rules text
+	super noun
+	tag singular
+	rule stem, *, "text"
+	rule plural, *, "text"
+
+rules boundary
+	super noun
+	rule stem, *, "boundary"
+	rule plural, *, "boundaries"
+
+rules paragraph
+	super noun
+	rule stem, *, "paragraph"
+
+rules data_series
+	super noun
+	rule stem, *, "data series"
+	rule plural, *, "data series"
+
+rules hyperlink
+	super noun
+	rule stem, *, "hyperlink"
+
+rules URL
+	super noun
+	rule stem, *, "URL"
+
+rules name
+	super noun
+	rule stem, *, "name"
+
+rules bibliography
+	super noun
+	rule stem, *, "bibliography"
+	rule plural, *, "bibliographies"
+
+rules database
+	super noun
+	rule stem, *, "database"
+
+rules version
+	super noun
+	rule stem, *, "version"
+
+rules year_number
+	super noun
+	rule stem, (.from & .to), "year from <.from> to <.to>"
+	rule stem, (.from), "year from <.from>"
+	rule stem, .to, "year up to <.to>"
+	rule stem, *, "year"
+	rule plural, (.from & .to), "years from <.from> to <.to>"
+	rule plural, (.from), "years from <.from>"
+	rule plural, .to, "years up to <.to>"
+	rule plural, *, "years"
+
+rules number
+	super noun
+	rule stem, .of, "number of <.of>"
+	rule stem, *, "number"
+	rule plural, .of, "numbers of <.of>"
+	rule plural, *, "numbers"
+
+rules step
+	super noun
+	rule stem, *, "step"
+
+rules cache
+	super noun
+	rule stem, *, "cache"
+
+rules a_per_b
+	super noun
+	rule stem, (.a & .b), "<.a> per <.b>"
+	rule stem, .a, "<.a> per ?"
+	rule stem, .b, "? per <.b>"
+	rule stem, *, "? per ?"
+	rule plural, *, "{stem}"
+
+rules object
+	super noun	
+	rule stem, *, "object"
+
+rules computer_memory
+	super noun
+	tag singular
+	rule stem, *, "memory"
+	rule plural, *, "memory"
+
+rules window
+	super noun
+	rule stem, *, "window"
+
+rules tab
+	super noun
+	rule stem, *, "tab"
+
+rules buffer
+	super noun
+	rule stem, *, "buffer"
+
+rules editing
+	super noun
+	tag singular
+	rule stem, *, "editing"
+	rule plural, *, "editing"
+
+rules formatting
+	super noun
+	tag singular
+	rule stem, *, "formatting"
+	rule plural, *, "formatting"
+
+rules printer_metric
+	super noun
+	rule stem, *, "printer metric"
+
+rules indent
+	super noun
+	rule stem, *, "indent"
+
+rules user
+	super noun
+	rule stem, *, "user"
+
+rules property_thing
+	super noun
+	rule stem, *, "property"
+	rule plural, *, "properties"
+
+rules backup_copy
+	super noun
+	rule stem, *, "backup copy"
+	rule plural, *, "backup copies"
+
+rules unmentioned
+	super noun
+	rule stem, *, "..."
+	rule plural, *, "..."
+
+rules file
+	super noun
+	rule stem, *, "file"
+
+rules popup_window
+	super noun
+	rule stem, *, "popup window"
+
+rules download_thing
+	super noun
+	rule stem, *, "download"
+
+rules manager
+	super noun
+	rule stem, *, "manager"
+
+rules image
+	super noun
+	rule stem, *, "image"
+
+rules browser
+	super noun
+	rule stem, *, "browser"
+
+rules change_thing
+	super noun
+	rule stem, *, "change"
+
+rules text_size
+	super noun
+	rule stem, *, "text size"
+
+rules action_thing
+	super noun
+	rule stem, *, "action"
+
+rules link
+	super noun
+	rule stem, .to, "link to <.to>"
+	rule stem, *, "link"
+	rule plural, .to, "links to <.to>"
+
+rules folder
+	super noun
+	rule stem, *, "folder"
+
+rules library
+	super noun
+	rule stem, *, "library"
+	rule plural, *, "libraries"
+
+rules error_correction
+	super noun
+	rule stem, *, "error correction"
+
+rules CD
+	super noun
+	rule stem, *, "CD"
+
+rules song
+	super noun
+	rule stem, *, "song"
+
+rules sound_volume
+	super noun
+	rule stem, *, "volume"
+
+
+//TYPES
+//types are not nouns!
+rules print-
+	rule *, *, "print"
+
+rules graphics-
+	rule *, *, "graphics"
+
+rules streaming-
+	rule *, *, "streaming"
+
+rules audio-
+	rule *, *, "audio"
+
+
+//ADJECTIVES
+rules adjective
+	rule *, .modifier, "<.modifier> {stem}"
+	rule *, *, "{stem}"
+
+
+//PROPERTIES
+rules general
+	super adjective
+	rule stem, *, "general"
+
+rules external
+	super adjective
+	rule stem, *, "external"
+
+rules saved
+	super adjective
+	rule stem, *, "saved"
+
+rules global
+	super adjective
+	rule stem, *, "global"
+
+rules selected
+	super adjective
+	rule stem, *, "selected"
+
+rules hidden
+	super adjective
+	rule stem, *, "hidden"
+
+rules has_number_of_digits
+	super adjective
+	rule stem, .number, "<.number>-digit"
+	rule stem, *, "?-digit"
+
+rules new
+	super adjective
+	rule stem, *, "new"
+
+rules quick
+	super adjective
+	rule stem, *, "quick"
+
+rules specific_to
+	super adjective
+	rule stem, .to, "<.to>-specific"
+	rule stem, *, "specific"
+
+rules for_which_statement_is_true
+	super adjective
+	tag afternoun
+	rule stem, .statement[ability_statement], "that <.statement:participle>"
+	rule stem, .statement, "<.statement:participle>"
+	rule stem, *, "that..."
+
+rules large
+	super adjective
+	rule stem, *, "large"
+
+rules like_this
+	super adjective
+	tag afternoun
+	rule stem, *, "like this"
+
+rules purchased
+	super adjective
+	rule stem, *, "purchased"
+
+rules small
+	super adjective
+	rule stem, *, "small"
+
+
+
+
+//PROPERTY MODIFIERS
+rules newly
+	rule *, *, "newly"
+
+
+//ACTION MODIFIERS
+rules again
+	rule *, *, "again"
+
+//FRAGMENTS
+rules OK
+	rule *, *, "OK"

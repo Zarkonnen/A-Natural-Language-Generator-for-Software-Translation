@@ -1,0 +1,1830 @@
+language en
+language de
+
+meaning
+	root
+	en ellipsis
+	de ellipsis
+	field
+		en_type *ANY
+		de_type *ANY
+		en content
+		de inhalt
+
+abstract
+	root
+	en question
+	de frage
+
+meaning
+	root
+	en command
+	de befehl
+	field
+		en_info The action field determines what kind of thing the user is commanded to do. For example, if this is set to "delete", the user is instructed to delete something. The target field of the action then determines *what* should be deleted.
+		en_type action
+		de_type aktion
+		en action
+		de aktion
+	field
+		en_info The please field can only contain a single possible value - "please". If this value is set, the command is transformed into a more polite request.
+		en_type please
+		de_type bitte
+		en please
+		de bitte
+
+meaning
+	root
+	en command_label
+	de befehl_beschreibung
+	field
+		en_info The action field determines what the computer is instructed to do. For example, if this is set to "download", the computer is instructed to download something. The thing to be downloaded can be determined by setting the target field of the action.
+		en_type action
+		de_type aktion
+		en action
+		de aktion
+	field
+		en_info Determines under which circumstances the computer should do something - where, when, and conditional on what.
+		en_type circumstances
+		de_type umstände
+		en circumstances
+		de umstände
+
+meaning
+	root
+	en_info A statement about some Action being made. For example, the sentence "You delete the document." is encoded using a statement node as the root node, with its actor field set to "delete". If on the other hand, the ability to do something should be expressed, use an ability_statement. If the fact that some Thing has some Property needs to be expressed, such as "The document is new.", use a property_statement node.
+	en statement
+	de aussage
+	field
+		en_info What kind of Action this Statement is about. For example, if this statement is about deleting something, this field is set to "delete". Who is doing the deleting is then determined by the Actor field of "delete", and what is being deleted by its Target field.
+		en_type action
+		de_type aktion
+		en action
+		de aktion
+	field
+		en_info Under which circumstances this happens - where, when, and conditional on what.
+		en_type circumstances
+		de_type umstände
+		en circumstances
+		de umstände
+
+
+abstract
+	en action
+	de aktion
+
+abstract
+	en single_action
+	de einzelne_aktion
+	super
+		en action
+		de aktion
+	field
+		en_info The Thing doing this Action. For example, if the whole sentence reads "You select the area.", then the value of this field is "you".
+		en_type thing
+		de_type ding
+		en actor
+		de akteur
+	field
+		en_info The Thing this Action is affected by. For example, if the whole sentence reads "You select the area.", then the value of this field is "area", and its which field is set to "specific".
+		en_type thing
+		de_type ding
+		en target
+		de ziel
+	field
+		en_info If this is filled with "negation", the statement is negated. Instead of "You select the area.", for example, the statement then reads "You don't select the area.".
+		en_type negation
+		de_type negation
+		en negation
+		de negation
+	field
+		en_info A modifier to how this Action is being performed. For example, by setting this to "again", the statement "You select the area." becomes "You select the area again.".
+		en_type action_modifier
+		de_type aktions_modifikator
+		en modifier
+		de modifikator
+
+abstract
+	en type
+	de art
+
+abstract
+	en thing
+	de ding
+	super
+		en type
+		de art
+
+abstract
+	en single_thing
+	de einzelnes_ding
+	super
+		en thing
+		de ding
+	field
+		en_info The number of Things. The basic values here are "one" and "several", and the default is "one". Example: if  "several" is selected, "file" becomes "files". Or if "all" is selected, "file" becomes "all files".
+		en_type quantity
+		de_type anzahl
+		en quantity
+		de anzahl
+	field
+		en_info Basically whether this is "the" Thing (specific) or "a" Thing (unspecific). Other possibilities include "this" Thing and "your" Thing.
+		en_type which
+		de_type welcher
+		en which
+		de welcher
+	field
+		en_info A way of specifying more closely what kind of Thing is meant. For example,  setting the type of "cache" to "file" makes the whole into a "file cache". You can select any Thing for specifying a type, and there are also some special values that end with a hyphen, like "graphics-".
+		en_type type
+		de_type art
+		en type
+		de art
+	field
+		en_info Specifies some property of this Thing. For example, setting the property of "file" to "hidden" makes it into a "hidden file".
+		en_type property
+		de_type eigenschaft
+		en property
+		de eigenschaft
+	field
+		en_info Where this Thing is located.
+		en_type location
+		de_type ort
+		en location
+		de ort
+	field
+		en_info A text label for naming a Thing. For example, setting the label of "the document" to "Fish.txt" turns it into: the document "Fish.txt".
+		en_type label
+		de_type bezeichnung
+		en label
+		de bezeichnung
+
+
+meaning
+	en circumstances
+	de umstände
+	field
+		en_info Determines the physical location of what is happening.
+		en_type location
+		de_type ort
+		en location
+		de ort
+	field
+		en_info Determines the time at which something is happening. Can be used to express that one thing happens after another, or that some thing happened in the past.
+		en_type time
+		de_type zeit
+		en time
+		de zeit
+	field
+		en_info The condition under which something happens. For example, this could be used in the phrase "The file is deleted when you click the "Delete" button.".
+		en_type condition
+		de_type voraussetzung
+		en condition
+		de voraussetzung
+
+abstract
+	en location
+	de ort
+	super
+		en thing
+		de ding
+
+abstract
+	en property
+	de eigenschaft
+	field
+		en_info A modifier for properties. For example, by setting the modifier of the "deleted" property of a "file" to "newly", you can say "the newly deleted file".
+		en_type property_modifier
+		de_type eigenschafts_modifikator
+		en modifier
+		de modifikator
+
+abstract
+	en action_modifier
+	de aktions_modifikator
+
+abstract
+	en property_modifier
+	de eigenschafts_modifikator
+
+abstract
+	en condition
+	de voraussetzung
+
+abstract
+	en time
+	de zeit
+
+abstract
+	root
+	en fragment
+	de fragment
+
+meaning
+	en please
+	de bitte
+
+meaning
+	en negation
+	de negation
+
+abstract
+	en quantity
+	de anzahl
+
+abstract
+	en which
+	de welcher
+
+abstract
+	en label
+	de bezeichnung
+
+meaning
+	en text_label
+	de text_bezeichnung
+	super
+		en label
+		de bezeichnung
+	field
+		en_type *STRING
+		de_type *STRING
+		en content
+		de inhalt
+
+abstract
+	en time_quantity
+	de zeitquantität
+
+
+meaning
+	root
+	en ability_statement
+	de fähigkeits_aussage
+	super
+		en statement
+		de aussage
+
+meaning
+	root
+	en property_statement
+	de eigenschafts_aussage
+	super
+		en statement
+		de aussage
+	field
+		en_info What Thing has the Property given in the other field. For example, by setting this to "file" and the property to "external", you can construct the statement "The file is external.".
+		en_type thing
+		de_type ding
+		en thing
+		de ding
+	field
+		en_info The Property the Thing given in the other field has. For example, by setting this to "file" and the property to "external", you can construct the statement "The file is external.".
+		en_type property
+		de_type eigenschaft
+		en property
+		de eigenschaft
+
+
+meaning
+	en action_or
+	de aktion_oder
+	super
+		en action
+		de aktion
+	field
+		en_info The first of the two actions.
+		en_type action
+		de_type aktion
+		en action1
+		de aktion1
+	field
+		en_info The second of the two actions.
+		en_type action
+		de_type aktion
+		en action2
+		de aktion2
+
+meaning
+	en action_and
+	de aktion_und
+	super
+		en action
+		de aktion
+	field
+		en_type action
+		de_type aktion
+		en action1
+		de aktion1
+	field
+		en_type action
+		de_type aktion
+		en action2
+		de aktion2
+
+meaning
+	en action_or_with_same_target
+	de aktion_oder_mit_gleichem_ziel
+	super
+		en action
+		de aktion
+	field
+		en_type action
+		de_type aktion
+		en action1
+		de aktion1
+	field
+		en_type action
+		de_type aktion
+		en action2
+		de aktion2
+
+meaning
+	en action_and_with_same_target
+	de aktion_und_mit_gleichem_ziel
+	super
+		en action
+		de aktion
+	field
+		en_type action
+		de_type aktion
+		en action1
+		de aktion1
+	field
+		en_type action
+		de_type aktion
+		en action2
+		de aktion2
+
+meaning
+	en action_or_with_same_actor
+	de aktion_oder_mit_gleichem_akteur
+	super
+		en action
+		de aktion
+	field
+		en_type action
+		de_type aktion
+		en action1
+		de aktion1
+	field
+		en_type action
+		de_type aktion
+		en action2
+		de aktion2
+
+meaning
+	en action_and_with_same_actor
+	de aktion_und_mit_gleichem_akteur
+	super
+		en action
+		de aktion
+	field
+		en_type action
+		de_type aktion
+		en action1
+		de aktion1
+	field
+		en_type action
+		de_type aktion
+		en action2
+		de aktion2
+
+
+
+meaning
+	en load
+	de laden
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en_info Modifying the parameters of the target to make the target perform correctly for some task or under some circumstances. Has an optional "for" field to determine what the target is being configured for.
+	en configure
+	de konfigurieren
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_info What the target of "configure" should be configured for. For example, this might be used in the sentence "Configure the proxy for the Internet.".
+		en_type thing
+		de_type ding
+		en for
+		de für
+
+meaning
+	en define
+	de definieren
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en for
+		de für
+
+
+meaning
+	en save
+	de speichern
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en as
+		de als
+
+meaning
+	en modify
+	de ändern
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en take_effect
+	de gelten
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en want_to
+	de wollen
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type action
+		de_type aktion
+		en action
+		de aktion
+
+meaning
+	en print
+	de drucken
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en from
+		de aus
+
+meaning
+	en store
+	de ablegen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en add_to
+	de hinzufügen
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en to
+		de zu
+
+meaning
+	en click
+	de klicken
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en buy
+	de kaufen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en check
+	de überprüfen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en try
+	de versuchen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en compare
+	de vergleichen
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en to
+		de mit
+
+meaning
+	en allow
+	de zulassen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en use
+	de verwenden
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en for
+		de für
+
+meaning
+	en increase
+	de erhöhen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en reload
+	de neu_laden
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en load
+	de laden
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en edit
+	de bearbeiten
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en create
+	de erstellen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en close
+	de schliessen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en undo
+	de rückgängig_machen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en delete
+	de löschen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en block
+	de blockieren
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en start
+	de starten
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en scale_down
+	de verkleinern
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en to_fit_into
+		de damit_passen_in
+
+meaning
+	en search
+	de suchen
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en search_for
+		de suchen_nach
+
+meaning
+	en replace
+	de ersetzen
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en with
+		de mit
+
+meaning
+	en perform
+	de ausführen
+
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en for
+		de für
+
+meaning
+	en select
+	de wählen
+
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en for
+		de für
+
+meaning
+	en cancel
+	de abbrechen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en show
+	de anzeigen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en copy
+	de kopieren
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en from
+		de von
+	field
+		en_type thing
+		de_type ding
+		en to
+		de nach
+
+meaning
+	en keep_in
+	de in_ort_behalten
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type location
+		de_type ort
+		en location
+		de ort
+
+meaning
+	en read
+	de lesen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en play_music
+	de musik_abspielen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en download
+	de herunterladen
+	super
+		en single_action
+		de einzelne_aktion
+
+meaning
+	en remove
+	de entfernen
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en from
+		de aus
+
+meaning
+	en find
+	de finden
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type location
+		de_type ort
+		en where
+		de wo
+
+meaning
+	en interpret
+	de interpretieren
+	super
+		en single_action
+		de einzelne_aktion
+	field
+		en_type thing
+		de_type ding
+		en as
+		de als
+
+meaning
+	en browse
+	de browsen
+	super
+		en single_action
+		de einzelne_aktion
+
+
+
+
+
+
+
+meaning
+	en thing_and
+	de ding_und
+	super
+		en thing
+		de ding
+	field
+		en_type thing
+		de_type ding
+		en thing1
+		de ding1
+	field
+		en_type thing
+		de_type ding
+		en thing2
+		de ding2
+
+
+meaning
+	en thing_or
+	de ding_oder
+	super
+		en thing
+		de ding
+	field
+		en_type thing
+		de_type ding
+		en thing1
+		de ding1
+	field
+		en_type thing
+		de_type ding
+		en thing2
+		de ding2
+
+meaning
+	en you
+	de sie
+	super
+		en thing
+		de ding
+
+meaning
+	en literal_thing
+	de benanntes_ding
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type *STRING
+		de_type *STRING
+		en name
+		de name
+
+
+meaning
+	en document
+	de dokument
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en internet
+	de internet
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en search_engine
+	de suchmaschine
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en setting
+	de einstellung
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en for
+		de für
+
+meaning
+	en proxy
+	de proxy
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en access
+	de zugriff
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en to
+		de auf
+
+meaning
+	en source
+	de quelle
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en data
+	de daten
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en about
+		de über
+
+meaning
+	en information
+	de information
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en about
+		de über
+
+meaning
+	en format
+	de format
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en option
+	de option
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en formula
+	de formel
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en spreadsheet
+	de tabelle
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en number
+	de anzahl_dinge
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en of
+		de von
+
+meaning
+	en area
+	de bereich
+	super
+		en single_thing
+		de einzelnes_ding
+
+abstract
+	en location
+	de ort
+
+meaning
+	en music
+	de musik
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en shopping_cart
+	de einkaufswagen
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en button
+	de knopf
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type command_label
+		de_type befehl_beschreibung
+		en command
+		de befehl
+
+meaning
+	en text
+	de text
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en boundary
+	de grenze
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en paragraph
+	de absatz
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en data_series
+	de datenreihe
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en hyperlink
+	de hyperlink
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en URL
+	de URL
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en name
+	de name
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en database
+	de datenbank
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en bibliography
+	de bibliographie
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en version
+	de version
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en year_number
+	de jahreszahl
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en from
+		de von
+	field
+		en_type thing
+		de_type ding
+		en to
+		de bis
+
+meaning
+	en step
+	de schritt
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en cache
+	de cache
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en a_per_b
+	de a_pro_b
+	super
+		en thing
+		de ding
+	field
+		en_type thing
+		de_type ding
+		en a
+		de a
+	field
+		en_type thing
+		de_type ding
+		en b
+		de b
+
+meaning
+	en computer_memory
+	de speicher
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en object
+	de objekt
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en window
+	de fenster
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en tab
+	de tab
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en buffer
+	de zwischenspeicher
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en for
+		de für
+
+meaning
+	en editing
+	de bearbeitung
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en printer_metric
+	de druckermass
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en formatting
+	de formattierung
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en indent
+	de einzug
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en user
+	de benutzer
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en backup_copy
+	de sicherheitskopie
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en unmentioned
+	de ungenannt
+	super
+		en thing
+		de ding
+
+meaning
+	en popup_window
+	de pop_up_fenster
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en download_thing
+	de download_ding
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en manager
+	de manager
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en browser
+	de browser
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en image
+	de bild
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en text_size
+	de schriftgrösse
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en action_thing
+	de aktion_ding
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en file
+	de datei
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en link
+	de verknüpfung
+	super
+		en single_thing
+		de einzelnes_ding
+	field
+		en_type thing
+		de_type ding
+		en to
+		de zu
+
+meaning
+	en folder
+	de ordner
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en library
+	de bibliothek
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en error_correction
+	de fehlerkorrektur
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en CD
+	de CD
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en song
+	de musiktitel
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en sound_volume
+	de lautstärke
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en change_thing
+	de veränderung
+	super
+		en single_thing
+		de einzelnes_ding
+
+meaning
+	en property_thing
+	de eigenschaft_ding
+	super
+		en single_thing
+		de einzelnes_ding
+
+
+
+meaning
+	en here
+	de hier
+	super
+		en location
+		de ort
+
+meaning
+	en in
+	de in
+	super
+		en location
+		de ort
+	field
+		en_type thing
+		de_type ding
+		en what
+		de was
+
+meaning
+	en foreground
+	de vordergrund
+	super
+		en location
+		de ort
+
+meaning
+	en location_of
+	de ort_von
+	super
+		en location
+		de ort
+	field
+		en_type thing
+		de_type ding
+		en of
+		de von
+	field
+		en_type time
+		de_type zeit
+		en time
+		de zeit
+
+
+meaning
+	en property_and
+	de eigenschaft_und
+	super
+		en property
+		de eigenschaft
+	field
+		en_type property
+		de_type eigenschaft
+		en property1
+		de eigenschaft1
+	field
+		en_type property
+		de_type eigenschaft
+		en property2
+		de eigenschaft2
+
+meaning
+	en property_or
+	de eigenschaft_oder
+	super
+		en property
+		de eigenschaft
+	field
+		en_type property
+		de_type eigenschaft
+		en property1
+		de eigenschaft1
+	field
+		en_type property
+		de_type eigenschaft
+		en property2
+		de eigenschaft2
+
+meaning
+	en basic
+	de grundlegend
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en of_format
+	de mit_format
+	super
+		en property
+		de eigenschaft
+	field
+		en_type thing
+		de_type ding
+		en type
+		de art
+
+meaning
+	en general
+	de generell
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en external
+	de extern
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en saved
+	de gespeichert
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en global
+	de global
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en higher
+	de höher
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en hidden
+	de versteckt
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en has_number_of_digits
+	de hat_anzahl_stellen
+	super
+		en property
+		de eigenschaft
+	field
+		en_type *INT
+		de_type *INT
+		en number
+		de anzahl
+
+meaning
+	en new
+	de neu
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en quick
+	de schnell
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en specific_to
+	de spezifisch_für
+	super
+		en property
+		de eigenschaft
+	field
+		en_type thing
+		de_type ding
+		en to
+		de für
+
+meaning
+	en large
+	de gross
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en small
+	de klein
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en like_this
+	de wie_dieser
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en purchased
+	de gekauft
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en selected
+	de ausgewählt
+	super
+		en property
+		de eigenschaft
+
+meaning
+	en past_affecting_present
+	de vergangenheit_mit_auswirkung_auf_gegenwart
+	super
+		en time
+		de zeit
+
+meaning
+	en before
+	de vor
+	super
+		en time
+		de zeit
+	field
+		en_type statement
+		de_type aussage
+		en before
+		de vor
+
+meaning
+	en after
+	de nach
+	super
+		en time
+		de zeit
+	field
+		en_type statement
+		de_type aussage
+		en after
+		de nach
+
+meaning
+	en when
+	de wenn
+	super
+		en time
+		de zeit
+	field
+		en_type statement
+		de_type aussage
+		en when
+		de wenn
+
+meaning
+	en during
+	de während
+	super
+		en time
+		de zeit
+	field
+		en_type action
+		de_type aktion
+		en during
+		de während
+
+meaning
+	en after_time
+	de nach_zeit
+	super
+		en time
+		de zeit
+	field
+		en_type time_quantity
+		de_type zeitquantität
+		en time
+		de zeit
+
+meaning
+	en always
+	de immer
+	super
+		en time
+		de zeit
+
+meaning
+	en currently
+	de momentan
+	super
+		en time
+		de zeit
+
+meaning
+	en minutes
+	de minuten
+	super
+		en time_quantity
+		de zeitquantität
+	field
+		en_type *INT
+		de_type *INT
+		en number
+		de anzahl
+
+
+
+
+meaning
+	en print-
+	de druck-
+	super
+		en type
+		de art
+
+meaning
+	en sort-
+	de sortier-
+	super
+		en type
+		de art
+
+meaning
+	en graphics-
+	de grafik-
+	super
+		en type
+		de art
+
+meaning
+	en streaming-
+	de stream-
+	super
+		en type
+		de art
+
+meaning
+	en audio-
+	de audio-
+	super
+		en type
+		de art
+
+
+
+
+
+meaning
+	en one
+	de eins
+	super
+		en quantity
+		de anzahl
+
+meaning
+	en several
+	de mehrere
+	super
+		en quantity
+		de anzahl
+
+meaning
+	en all
+	de alle
+	super
+		en quantity
+		de anzahl
+
+meaning
+	en various
+	de verschiedene
+	super
+		en quantity
+		de anzahl
+
+meaning
+	en specific
+	de spezifisch
+	super
+		en which
+		de welcher
+
+meaning
+	en unspecific
+	de unspezifisch
+	super
+		en which
+		de welcher
+
+meaning
+	en your
+	de ihr
+	super
+		en which
+		de welcher
+
+meaning
+	en this
+	de dieses
+	super
+		en which
+		de welcher
+
+meaning
+	en following
+	de folgende
+	super
+		en which
+		de welcher
+
+
+
+
+meaning
+	en newly
+	de neu_modifikator
+	super
+		en property_modifier
+		de eigenschafts_modifikator
+
+meaning
+	en again
+	de nochmals
+	super
+		en action_modifier
+		de aktions_modifikator
+
+
+
+
+meaning
+	en when_statement
+	de wenn_aussage
+	super
+		en condition
+		de voraussetzung
+	field
+		en_type statement
+		de_type aussage
+		en when
+		de wenn
+
+
+
+meaning
+	en OK
+	de OK
+	super
+		en fragment
+		de fragment
+
+
+
+
+meaning
+	en question_want_to
+	de frage_wollen
+	super
+		en question
+		de frage
+	field
+		en_type action
+		de_type aktion
+		en action
+		de aktion
+
+meaning
+	en question_do_what_with
+	de frage_wie_verfahren_mit
+	super
+		en question
+		de frage
+	field
+		en_type thing
+		de_type ding
+		en actor
+		de akteur
+	field
+		en_type thing
+		de_type ding
+		en with
+		de mit

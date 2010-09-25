@@ -1,0 +1,10 @@
+en
+statement
+	action configure
+		actor you
+		target literal_thing
+			name "OpenOffice.org"
+		for internet
+			which specific
+	circumstances circumstances
+		location here

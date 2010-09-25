@@ -1,0 +1,2198 @@
+//GENERATOR-REGELN FÜR DIE DEUTSCHE SPRACHE
+
+//ELLIPSIS
+rules ellipsis
+	rule *, .inhalt[punkt], "<.inhalt>.."
+	rule *, *, "<.inhalt>..."
+
+
+//NORMALE AUSSAGEN
+//Normales Verhalten: Satz mit Grossbuchstaben am Anfang und Schlusspunkt.
+rules aussage
+	tag punkt
+	//normal, hier
+	rule *, .umstände.ort, "<+=:ort>{satz_verb_zuerst}."
+
+	//normal
+	rule *, *, "<+=:satz>."
+
+	//verb am schluss
+	rule verb_am_schluss, *, "{satz_verb_am_schluss}"
+
+	//voraussetzung
+	rule vorauss, .umstände.voraussetzung, " <.umstände.voraussetzung>"
+	rule vorauss, *, ""
+
+	//zeitangabe
+	rule zeitangabe, .umstände.zeit[anzeigen], " <.umstände.zeit>"
+	rule zeitangabe, *, ""
+
+	//zeitangabe am anfang
+	//rule zeitanf, .umstände.zeit[insatz], "<.umstände.zeit> "
+	rule zeitanf, *, ""
+
+	//Perfekt
+	rule satz, .umstände.zeit[vergangenheit_mit_auswirkung_auf_gegenwart], "{zeitanf}<.aktion:perf>{vorauss}{zeitangabe}"
+	rule satz_verb_zuerst, .umstände.zeit[vergangenheit_mit_auswirkung_auf_gegenwart], "{zeitanf}<.aktion:perf_verb_zuerst>{vorauss}{zeitangabe}"
+	rule satz_verb_am_schluss, .umstände.zeit[vergangenheit_mit_auswirkung_auf_gegenwart], "{zeitanf}<.aktion:perf_verb_am_schluss_vor_ort>{ort}<.aktion:perf_verb_am_schluss_nach_ort>{vorauss}{zeitangabe}"
+
+	//normal
+	rule satz, *, "{zeitanf}<.aktion>{vorauss}{zeitangabe}"
+	rule satz_verb_zuerst, *, "{zeitanf}<.aktion:verb_zuerst>{vorauss}{zeitangabe}"
+	rule satz_verb_am_schluss, *, "{zeitanf}<.aktion:verb_am_schluss_vor_ort>{ort}<.aktion:verb_am_schluss_nach_ort>{vorauss}{zeitangabe}"
+
+	//ort
+	rule ort, .umstände.ort, "<.umstände.ort> "
+	rule ort, *, ""
+
+
+
+//FÄHIGKEITS-AUSSAGEN
+rules fähigkeits_aussage
+	tag punkt
+
+	//normal, hier
+	rule *, .umstände.ort[hier], "Hier {satz_verb_zuerst}."
+
+	//normal
+	rule *, *, "<+=:satz>."
+
+	//verb am schluss
+	rule verb_am_schluss, *, "{satz_verb_am_schluss}"
+
+	//voraussetzung
+	rule vorauss, .umstände.voraussetzung, " <.umstände.voraussetzung>"
+	rule vorauss, *, ""
+
+	//zeitangabe
+	rule zeitangabe, .umstände.zeit[anzeigen], " <.umstände.zeit>"
+	rule zeitangabe, *, ""
+
+	//zeitangabe am anfang
+	//rule zeitanf, .umstände.zeit[insatz], "<.umstände.zeit> "
+	rule zeitanf, *, ""
+
+	//Perfekt, fähig
+	rule satz, .umstände.zeit[vergangenheit_mit_auswirkung_auf_gegenwart], "{zeitanf}<.aktion:perf_fähig>{vorauss}{zeitangabe}"
+	rule satz_verb_zuerst, .umstände.zeit[vergangenheit_mit_auswirkung_auf_gegenwart], "{zeitanf}<.aktion:perf_fähig_verb_zuerst>{vorauss}{zeitangabe}"
+	rule satz_verb_am_schluss, .umstände.zeit[vergangenheit_mit_auswirkung_auf_gegenwart], "{zeitanf}<.aktion:perf_fähig_verb_am_schluss_vor_ort>{ort}<.aktion:perf_fähig_verb_am_schluss_nach_ort>{vorauss}{zeitangabe}"
+
+	//normal, fähig
+	rule satz, *, "{zeitanf}<.aktion:fähig>{vorauss}{zeitangabe}"
+	rule satz_verb_zuerst, *, "{zeitanf}<.aktion:fähig_verb_zuerst>{vorauss}{zeitangabe}"
+	rule satz_verb_am_schluss, *, "{zeitanf}<.aktion:fähig_verb_am_schluss_vor_ort>{ort}<.aktion:fähig_verb_am_schluss_nach_ort>{vorauss}{zeitangabe}"
+
+	//ort
+	rule ort, .umstände.ort[hier], "hier "
+	rule ort, *, ""
+
+
+
+//EIGENSCHAFTS-AUSSAGEN
+rules eigenschafts_aussage
+	tag punkt
+
+	rule *, *, "<+.ding:nom> {sein_ding} <.eigenschaft:stamm>."
+	rule verb_am_schluss, *, "<.ding:nom> <.eigenschaft:stamm> {sein_ding}"
+
+	rule sein_ding, .ding[1pers].anzahl[plural], "sind"
+	rule sein_ding, .ding[2pers].anzahl[plural], "seid"
+	rule sein_ding, .ding[3pers].anzahl[plural], "sind"
+	rule sein_ding, .ding[1pers], "bin"
+	rule sein_ding, .ding[2pers], "sind"
+	rule sein_ding, .ding[3pers], "ist"
+
+
+
+
+//BEFEHLE AN DEN COMPUTER
+rules befehl_beschreibung
+	rule *, *, "<+=:befehl>"
+	rule keinpunkt, *, "{*}"
+
+	rule befehl, *, "{zeitanf}<.aktion:inf_ohne_akteur>{vorauss}{zeitangabe}"
+
+	//voraussetzung
+	rule vorauss, .umstände.voraussetzung, " <.umstände.voraussetzung>"
+	rule vorauss, *, ""
+
+	//zeitangabe
+	rule zeitangabe, .umstände.zeit[anzeigen], " <.umstände.zeit>"
+	rule zeitangabe, *, ""
+
+	//zeitangabe am anfang
+	//rule zeitanf, .umstände.zeit[insatz], "<.umstände.zeit> "
+	rule zeitanf, *, ""
+
+
+
+
+//BEFEHL
+rules befehl
+	tag punkt
+
+	rule *, .bitte, "Bitte <.aktion:v_imperativ>."
+	rule *, *, "<+.aktion:v_imperativ>."
+
+
+
+//FRAGEN
+rules frage_wollen
+	rule *, .aktion, "Wollen Sie <.aktion:inf_ohne_akteur>?"
+	rule *, *, "Wollen Sie..."
+
+rules frage_wie_verfahren_mit
+	rule *, (.akteur & .mit), "Wie soll <.akteur:nom> mit <.mit:dat> verfahren?"
+
+
+
+
+//VORAUSSETZUNGEN
+rules wenn_aussage
+	rule *, *, "wenn <.wenn:verb_am_schluss>"
+
+
+//ZEITEN
+rules wenn
+	tag anzeigen
+
+	rule *, ^[umstände].voraussetzung, "und <.wenn:verb_am_schluss>"
+	rule *, *, "wenn <.wenn:verb_am_schluss>"
+
+rules immer
+	tag insatz
+	rule *, *, "immer"
+
+rules nach
+	tag insatz
+	rule *, *, "nach <.nach:verb_am_schluss>"
+
+rules vor
+	tag insatz
+	rule *, *, "vor <.vor:verb_am_schluss>"
+
+rules nach_zeit
+	tag insatz
+	rule *, *, "nach <.zeit>"
+
+rules minuten
+	rule *, .anzahl[1], "1 Minute"
+	rule *, *, "<.anzahl> Minuten"
+
+rules während
+	tag anzeigen
+	rule *, ^[umstände].voraussetzung, "und beim <.während:ding>"
+	rule *, *, "beim <.während:ding>"
+
+
+//ORTE
+rules hier
+	rule *, *, "hier"
+
+rules in
+	rule *, (!(.was.welcher)), "im <.was:dat>"
+	rule *, .war, "in <.was:dat>"
+	rule *, *, "in ?"
+
+rules vordergrund
+	rule *, *, "im Vordergrund"
+
+rules ort_von
+	rule *, *, "{ort_von}"
+
+	rule ort_von, .zeit[vergangenheit_mit_auswirkung_auf_gegenwart], "wo {von} gewesen {sein_von}"
+	rule ort_von, *, "wo {von} {sein_von}"
+
+	rule von, .von, "<.von:nom>"
+	rule von, *, "?"
+
+	rule sein_von, .von[1pers].anzahl[plural], "sind"
+	rule sein_von, .von[2pers].anzahl[plural], "seid"
+	rule sein_von, .von[3pers].anzahl[plural], "sind"
+	rule sein_von, .von[1pers], "bin"
+	rule sein_von, .von[2pers], "sind"
+	rule sein_von, .von[3pers], "ist"
+
+
+//VERB
+rules verb
+
+	//NORMAL
+	//normal, passiv
+	rule *, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{werden_ziel}{_z_insatz}{negation} {adv_}{v_partizip}{für}"
+	//normal, aktiv
+	rule *, .akteur, "{akteur} {v_präsens}{_z_insatz}{_ziel}{negation}{_adv}{für}{_nach_objekt}"
+	//infinitiv
+	rule *, *, "{z_insatz_}{negation_}{adv_}{infinitiv}"
+
+	//normal, verb zuerst, passiv
+	rule verb_zuerst, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{werden_ziel}{_z_insatz}{_ziel}{negation} {adv_}{v_partizip}{für}"
+	//normal, verb zuerst, aktiv
+	rule verb_zuerst, .akteur, "{v_präsens}{_z_insatz} {akteur}{_ziel}{negation}{_adv}{für}{_nach_objekt}"
+	//verb zuerst, infinitiv
+	rule verb_zuerst, *, "{z_insatz_}{negation_}{adv_}{infinitiv}"
+
+	//normal, kein akteur, passiv
+	rule kein_akteur, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{werden_ziel}{_z_insatz}{negation} {adv_}{v_partizip}{für}"
+	//normal, kein akteur, aktiv
+	rule kein_akteur, .akteur, "{v_präsens}{_z_insatz}{negation}{_ziel}{_adv}{für}{_nach_objekt}"
+	//kein akteur, infinitiv
+	rule kein_akteur, *, "{z_insatz_}{negation_}{adv_}{infinitiv}"
+
+	//verb am schluss
+	rule verb_am_schluss_vor_ort, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}"
+	rule verb_am_schluss_nach_ort, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{z_insatz_}{negation_}{für_}{adv_}{v_partizip} {werden_ziel}"
+	rule verb_am_schluss_vor_ort, .akteur, "{akteur} "
+	rule verb_am_schluss_nach_ort, .akteur, "{z_insatz_}{negation_}{ziel_}{für_}{nach_objekt_}{adv_}{v_präsens}"
+	rule verb_am_schluss_vor_ort, *, ""
+	rule verb_am_schluss_nach_ort, *, "{z_insatz_}{negation_}{für_}{adv_}{infinitiv}"
+
+
+	//Perfekt
+	//Perfekt, passiv
+	rule perf, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{sein_ziel}{_z_insatz}{negation}{_adv}{für} {v_partizip} worden"
+	//Perfekt, aktiv
+	rule perf, .akteur, "{akteur} {haben_akteur}{_ziel}{_z_insatz}{negation}{_adv}{für} {v_partizip}"
+	//quasi infinitiv
+	rule perf, *, "{z_insatz_}{negation_}{adv_}{v_partizip} haben"
+
+	//Perfekt, verb zuerst, passiv
+	rule perf_verb_zuerst, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{sein_ziel}{_z_insatz}{_ziel}{negation}{_adv}{für} {v_partizip} worden"
+	//Perfekt, verb zuerst, aktiv
+	rule perf_verb_zuerst, .akteur, "{haben_akteur}{_z_insatz} {akteur}{_ziel}{negation}{_adv}{für} {v_partizip}"
+	//quasi infinitiv, verb zuerst
+	rule perf_verb_zuerst, *, "{z_insatz_}{negation_}{adv_}{v_partizip} haben"
+
+	//Perfekt, kein akteur, passiv
+	rule perf_kein_akteur, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{sein_ziel}{_z_insatz}{negation}{_adv}{für} {v_partizip} worden"
+	//Perfekt, kein akteur, aktiv
+	rule perf_kein_akteur, .akteur, "{haben_akteur}{_z_insatz}{_ziel}{negation}{_adv}{für} {v_partizip}"
+	//quasi infinitiv, kein akteur
+	rule perf_kein_akteur, *, "{z_insatz_}{negation_}{adv_}{v_partizip} haben"
+
+	//verb am schluss
+	rule perf_verb_am_schluss_vor_ort, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}"
+	rule perf_verb_am_schluss_nach_ort, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{z_insatz_}{negation_}{adv_}{für_}{v_partizip} worden {sein_ziel}"
+	rule perf_verb_am_schluss_vor_ort, .akteur, "{akteur} {ziel_}"
+	rule perf_verb_am_schluss_nach_ort, .akteur, "{z_insatz_}{negation_}{adv_}{für_}{v_partizip} {haben_akteur}"
+	rule perf_verb_am_schluss_vor_ort, *, ""
+	rule perf_verb_am_schluss_nach_ort, *, "{z_insatz_}{negation_}{für_}{adv_}{v_partizip} haben"
+
+
+
+
+	//FÄHIG
+	//fähig, passiv
+	rule fähig, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{können_ziel}{_z_insatz}{negation}{_adv}{für} {v_partizip} werden"
+	//fähig, aktiv
+	rule fähig, .akteur, "{akteur} {können_akteur}{_z_insatz}{negation}{_ziel}{_adv}{für} {infinitiv}"
+	//fähig, infinitiv
+	rule fähig, *, "{adv_}{infinitiv}{_z_insatz}{negation} können"
+
+	//fähig, verb zuerst, passiv
+	rule fähig_verb_zuerst, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{können_ziel}{_z_insatz}{negation}{_ziel}{_adv}{für} {v_partizip} werden"
+	//normal, verb zuerst, aktiv
+	rule fähig_verb_zuerst, .akteur, "{können_akteur}{_z_insatz} {akteur}{negation}{_ziel}{_adv}{für} {infinitiv}"
+	//verb zuerst, infinitiv
+	rule fähig_verb_zuerst, *, "{adv_}{infinitiv}{_z_insatz}{negation} können"
+
+	//fähig, kein akteur, passiv
+	rule fähig_kein_akteur, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{können_ziel}{_z_insatz}{negation}{für} {adv_}{v_partizip} werden"
+	//fähig, aktiv
+	rule fähig_kein_akteur, .akteur, "{können_akteur}{_z_insatz}{negation}{_ziel}{für} {adv_}{infinitiv}"
+	//fähig, infinitiv
+	rule fähig_kein_akteur, *, "{adv_}{infinitiv}{_z_insatz}{negation} können"
+
+	//verb am schluss
+	rule fähig_verb_am_schluss_vor_ort, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}"
+	rule fähig_verb_am_schluss_nach_ort, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{z_insatz_}{negation_}{für_}{adv_}{v_partizip} werden {können_ziel}"
+	rule fähig_verb_am_schluss_vor_ort, .akteur, "{akteur} {ziel_}"
+	rule fähig_verb_am_schluss_nach_ort, .akteur, "{z_insatz_}{negation_}{für_}{adv_}{infinitiv} {können_akteur}"
+	rule fähig_verb_am_schluss_vor_ort, *, ""
+	rule fähig_verb_am_schluss_nach_ort, *, "{z_insatz_}{adv_}{infinitiv}{negation}{für} können"
+
+
+	//Perfekt, FÄHIG
+	//Perfekt, passiv
+	rule perf_fähig, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{konnte_ziel}{_z_insatz}{negation}{für} {adv_}{v_partizip} werden"
+	//Perfekt, aktiv
+	rule perf_fähig, .akteur, "{akteur} {haben_akteur}{_z_insatz}{_ziel}{negation}{für} {adv_}{infinitiv} können"
+	//quasi infinitiv
+	rule perf_fähig, *, "{z_insatz_}{negation_}{adv_}{v_partizip} haben können"
+
+	//Perfekt, verb zuerst, passiv
+	rule perf_fähig_verb_zuerst, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{konnte_ziel}{_z_insatz}{_ziel}{negation}{für} {adv_}{v_partizip} werden"
+	//Perfekt, verb zuerst, aktiv
+	rule perf_fähig_verb_zuerst, .akteur, "{haben_akteur}{_z_insatz} {akteur}{_ziel}{negation}{für} {adv_}{infinitiv} können"
+	//quasi infinitiv, verb zuerst
+	rule perf_fähig_verb_zuerst, *, "{z_insatz_}{negation_}{adv_}{v_partizip} haben können"
+
+	//Perfekt, kein akteur, passiv
+	rule perf_fähig_kein_akteur, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}{konnte_ziel}{_z_insatz}{negation}{für} {adv_}{v_partizip} worden"
+	//Perfekt, kein akteur, aktiv
+	rule perf_fähig_kein_akteur, .akteur, "{haben_akteur}{_z_insatz}{_ziel}{negation}{für} {adv_}{infinitiv} können"
+	//quasi infinitiv, kein akteur
+	rule perf_fähig_kein_akteur, *, "{z_insatz_}{negation_}{adv_}{v_partizip} haben können"
+
+	//verb am schluss
+	rule perf_fähig_verb_am_schluss_vor_ort, (!(.akteur) & (.ziel | ^.aktion1.ziel)), "{ziel_}"
+	rule perf_fähig_verb_am_schluss_nach_ort,(!(.akteur) & (.ziel | ^.aktion1.ziel)), "{z_insatz_}{negation_}{für_}{adv_}{v_partizip} werden {konnte_ziel}"
+	rule perf_fähig_verb_am_schluss_vor_ort, .akteur, "{akteur} {ziel_}"
+	rule perf_fähig_verb_am_schluss_nach_ort, .akteur, "{z_insatz_}{negation_}{für_}{adv_}{infinitiv} können {haben_akteur}"
+	rule perf_fähig_verb_am_schluss_vor_ort, *, ""
+	rule perf_fähig_verb_am_schluss_nach_ort, *, "{z_insatz_}{negation_}{adv_}{v_partizip} haben können"
+
+
+
+
+	//INFINITIV
+	rule inf_ohne_akteur, *, "{ziel_}{z_insatz_}{negation_}{für_}{infinitiv}"
+
+
+	//IMPERATIV
+	rule v_imperativ, *, "{imperativ} Sie{_z_insatz}{negation}{_ziel}{_adv}{für}{_nach_objekt}"
+
+	//normalerweise, imperativ = infinitiv
+	rule imperativ, *, "{infinitiv}"
+
+	//DING
+	rule ding, .akteur, "{akteur}{_z_insatz} {negation_}{ziel_}{für_}{nach_objekt_}{adv_}{v_präsens}"
+	rule ding, *, "{ziel_}{z_insatz_}{negation_}{für_}{adv_}{infinitiv}"
+
+
+
+	//KONJUGIEREN
+	//präsens
+	rule v_präsens, .akteur[1pers].anzahl[plural], "{präs_1pl}"
+	rule v_präsens, .akteur[2pers].anzahl[plural], "{präs_2pl}"
+	rule v_präsens, .akteur[3pers].anzahl[plural], "{präs_3pl}"
+	rule v_präsens, .akteur[1pers], "{präs_1sg}"
+	rule v_präsens, .akteur[2pers], "{präs_2sg}"
+	rule v_präsens, .akteur[3pers], "{präs_3sg}"
+
+	rule v_partizip, *, "{part_pass}"
+
+
+	//NEGATION
+	rule negation, .negation, " nicht"
+	rule negation, *, ""
+
+	rule negation_, .negation, "nicht "
+	rule negation_, *, ""
+
+	//ADVERB
+	rule adv_, .modifikator, "<.modifikator> "
+	rule adv_, *, ""
+
+	rule _adv, .modifikator, " <.modifikator>"
+	rule _adv, *, ""
+
+
+	//ZEITANGABE IM SATZ
+	rule _z_insatz, ^.umstände.zeit[insatz], " <^.umstände.zeit>"
+	rule _z_insatz, *, ""
+
+	rule z_insatz_, ^.umstände.zeit[insatz], "<^.umstände.zeit> "
+	rule z_insatz_, *, ""
+
+
+	//AKTEURE UND ZIELE
+	rule akteur, *, "<.akteur:nom>"
+
+
+	rule ziel_, (.ziel & =[akk]), "{präp_}<.ziel:akk> "
+	rule ziel_, (.ziel & =[dat]), "{präp_}<.ziel:dat> "
+	rule ziel_, (.ziel & =[nom]), "{präp_}<.ziel:nom> "
+
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[ersteperson] & =[akk]), "{präp_}mich "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[zweiteperson] & =[akk]), "{präp_}Sie "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel.anzahl[plural] & !(^[gleiches_ziel].aktion1.ziel[singular]) & =[akk]), "{präp_}sie "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[weib] & =[akk]), "{präp_}sie "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[säch] & =[akk]), "{präp_}es "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[männ] & =[akk]), "{präp_}ihn "
+
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[ersteperson] & =[nom]), "{präp_}ich "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[zweiteperson] & =[nom]), "{präp_}Sie "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel.anzahl[plural] & !(^[gleiches_ziel].aktion1.ziel[singular]) & =[nom]), "{präp_}sie "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[weib] & =[nom]), "{präp_}sie "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[säch] & =[nom]), "{präp_}es "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[männ] & =[nom]), "{präp_}er "
+
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[ersteperson] & =[dat]), "{präp_}mir "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[zweiteperson] & =[dat]), "{präp_}Ihnen "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel.anzahl[plural] & !(^[gleiches_ziel].aktion1.ziel[singular]) & =[dat]), "{präp_}ihnen "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[weib] & =[dat]), "{präp_}ihr "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[säch] & =[dat]), "{präp_}ihm "
+	rule ziel_, (^[gleiches_ziel].aktion1.ziel[männ] & =[dat]), "{präp_}ihm "
+
+	rule ziel_, *, ""
+
+
+
+	rule _ziel, (.ziel & =[akk]), " {präp_}<.ziel:akk>"
+	rule _ziel, (.ziel & =[dat]), " {präp_}<.ziel:dat>"
+	rule _ziel, (.ziel & =[nom]), " {präp_}<.ziel:nom>"
+
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[ersteperson] & =[akk]), " {präp_}mich"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[zweiteperson] & =[akk]), " {präp_}Sie"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel.anzahl[plural] & !(^[gleiches_ziel].aktion1.ziel[singular]) & =[akk]), " {präp_}sie"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[weib] & =[akk]), " {präp_}sie"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[säch] & =[akk]), " {präp_}es"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[männ] & =[akk]), " {präp_}ihn"
+
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[ersteperson] & =[nom]), " {präp_}ich"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[zweiteperson] & =[nom]), " {präp_}Sie"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel.anzahl[plural] & !(^[gleiches_ziel].aktion1.ziel[singular]) & =[nom]), " {präp_}sie"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[weib] & =[nom]), " {präp_}sie"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[säch] & =[nom]), " {präp_}es"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[männ] & =[nom]), " {präp_}er"
+
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[ersteperson] & =[dat]), " {präp_}mir"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[zweiteperson] & =[dat]), " {präp_}Ihnen"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel.anzahl[plural] & !(^[gleiches_ziel].aktion1.ziel[singular]) & =[dat]), " {präp_}ihnen"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[weib] & =[dat]), " {präp_}ihr"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[säch] & =[dat]), " {präp_}ihm"
+	rule _ziel, (^[gleiches_ziel].aktion1.ziel[männ] & =[dat]), " {präp_}ihm"
+
+	rule _ziel, *, ""
+
+
+	//NACH DEM OBJEKT
+	rule nach_objekt_, *, ""
+	rule _nach_objekt, *, ""
+
+
+	//PRÄPOSITION
+	rule präp_, *, ""
+
+
+	//FÜR
+	rule für, .für, " für <.für:akk>"
+	rule für, *, ""
+
+	rule für_, .für, "für <.für:akk> "
+	rule für_, *, ""
+
+
+	//HILFSVERBEN
+	rule werden_ziel, (.ziel[1pers].anzahl[plural] & !(.ziel[singular])), "werden"
+	rule werden_ziel, (.ziel[2pers].anzahl[plural] & !(.ziel[singular])), "werdet"
+	rule werden_ziel, (.ziel[3pers].anzahl[plural] & !(.ziel[singular])), "werden"
+	rule werden_ziel, .ziel[1pers], "werde"
+	rule werden_ziel, .ziel[2pers], "werden"
+	rule werden_ziel, .ziel[3pers], "wird"
+	rule werden_ziel, (^.aktion1.ziel[1pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "werden"
+	rule werden_ziel, (^.aktion1.ziel[2pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "werdet"
+	rule werden_ziel, (^.aktion1.ziel[3pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "werden"
+	rule werden_ziel, ^.aktion1.ziel[1pers], "werde"
+	rule werden_ziel, ^.aktion1.ziel[2pers], "werden"
+	rule werden_ziel, ^.aktion1.ziel[3pers], "wird"
+
+	rule können_ziel, (.ziel[1pers].anzahl[plural] & !(.ziel[singular])), "können"
+	rule können_ziel, (.ziel[2pers].anzahl[plural] & !(.ziel[singular])), "könnt"
+	rule können_ziel, (.ziel[3pers].anzahl[plural] & !(.ziel[singular])), "können"
+	rule können_ziel, .ziel[1pers], "kann"
+	rule können_ziel, .ziel[2pers], "können"
+	rule können_ziel, .ziel[3pers], "kann"
+	rule können_ziel, (^.aktion1.ziel[1pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "können"
+	rule können_ziel, (^.aktion1.ziel[2pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "könnt"
+	rule können_ziel, (^.aktion1.ziel[3pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "können"
+	rule können_ziel, ^.aktion1.ziel[1pers], "kann"
+	rule können_ziel, ^.aktion1.ziel[2pers], "können"
+	rule können_ziel, ^.aktion1.ziel[3pers], "kann"
+
+	rule können_akteur, (.akteur[1pers].anzahl[plural] & !(.akteur[singular])), "können"
+	rule können_akteur, (.akteur[2pers].anzahl[plural] & !(.akteur[singular])), "könnt"
+	rule können_akteur, (.akteur[3pers].anzahl[plural] & !(.ziel[singular])), "können"
+	rule können_akteur, .akteur[1pers], "kann"
+	rule können_akteur, .akteur[2pers], "können"
+	rule können_akteur, .akteur[3pers], "kann"
+
+	rule sein_ziel, (.ziel[1pers].anzahl[plural] & !(.ziel[singular])), "sind"
+	rule sein_ziel, (.ziel[2pers].anzahl[plural] & !(.ziel[singular])), "seid"
+	rule sein_ziel, (.ziel[3pers].anzahl[plural] & !(.ziel[singular])), "sind"
+	rule sein_ziel, .ziel[1pers], "bin"
+	rule sein_ziel, .ziel[2pers], "sind"
+	rule sein_ziel, .ziel[3pers], "ist"
+	rule sein_ziel, (^.aktion1.ziel[1pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "sind"
+	rule sein_ziel, (^.aktion1.ziel[2pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "seid"
+	rule sein_ziel, (^.aktion1.ziel[3pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "sind"
+	rule sein_ziel, ^.aktion1.ziel[1pers], "bin"
+	rule sein_ziel, ^.aktion1.ziel[2pers], "sind"
+	rule sein_ziel, ^.aktion1.ziel[3pers], "ist"
+
+	rule haben_akteur, (.akteur[1pers].anzahl[plural] & !(.akteur[singular])), "haben"
+	rule haben_akteur, (.akteur[2pers].anzahl[plural] & !(.akteur[singular])), "habt"
+	rule haben_akteur, (.akteur[3pers].anzahl[plural] & !(.akteur[singular])), "haben"
+	rule haben_akteur, .akteur[1pers], "habe"
+	rule haben_akteur, .akteur[2pers], "haben"
+	rule haben_akteur, .akteur[3pers], "hat"
+
+	rule konnte_ziel, (.ziel[1pers].anzahl[plural] & !(.ziel[singular])), "konnten"
+	rule konnte_ziel, (.ziel[2pers].anzahl[plural] & !(.ziel[singular])), "konntet"
+	rule konnte_ziel, (.ziel[3pers].anzahl[plural] & !(.ziel[singular])), "konnten"
+	rule konnte_ziel, .ziel[1pers], "konnte"
+	rule konnte_ziel, .ziel[2pers], "konntet"
+	rule konnte_ziel, .ziel[3pers], "konnte"
+	rule konnte_ziel, (^.aktion1.ziel[1pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "konnten"
+	rule konnte_ziel, (^.aktion1.ziel[2pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "konntet"
+	rule konnte_ziel, (^.aktion1.ziel[3pers].anzahl[plural] & !(^.aktion1.ziel[singular])), "konnten"
+	rule konnte_ziel, ^.aktion1.ziel[1pers], "konnte"
+	rule konnte_ziel, ^.aktion1.ziel[2pers], "konntet"
+	rule konnte_ziel, ^.aktion1.ziel[3pers], "konnte"
+
+
+
+
+//AKTION-UND
+rules aktion_und_mit_gleichem_akteur
+	rule *, *, "<.aktion1> und <.aktion2:kein_akteur>"
+	rule verb_zuerst, *, "<.aktion1:verb_zuerst> und <.aktion2:kein_akteur>"
+	rule kein_akteur, *, "<.aktion1:kein_akteur> und <.aktion2:kein_akteur>"
+
+	rule perf, *, "<.aktion1:perf> und <.aktion2:perf_kein_akteur>"
+	rule perf_verb_zuerst, *, "<.aktion1:perf_verb_zuerst> und <.aktion2:perf_kein_akteur>"
+	rule perf_kein_akteur, *, "<.aktion1:perf_kein_akteur> und <.aktion2:perf_kein_akteur>"
+
+	rule fähig, *, "<.aktion1:fähig> und <.aktion2:fähig_kein_akteur>"
+	rule fähig_verb_zuerst, *, "<.aktion1:fähig_verb_zuerst> und <.aktion2:fähig_kein_akteur>"
+	rule fähig_kein_akteur, *, "<.aktion1:fähig_kein_akteur> und <.aktion2:fähig_kein_akteur>"
+
+	rule perf_fähig, *, "<.aktion1:perf_fähig> und <.aktion2:perf_fähig_kein_akteur>"
+	rule perf_fähig_verb_zuerst, *, "<.aktion1:perf_fähig_verb_zuerst> und <.aktion2:perf_fähig_kein_akteur>"
+	rule perf_fähig_kein_akteur, *, "<.aktion1:perf_fähig_kein_akteur> und <.aktion2:perf_fähig_kein_akteur>"
+
+	rule v_imperativ, *, "<.aktion1:v_imperativ> und <.aktion2:v_imperativ>"
+
+	rule inf_ohne_akteur, *, "<.aktion1:inf_ohne_akteur> und <.aktion2:inf_ohne_akteur>"
+
+
+rules aktion_und
+	rule *, *, "<.aktion1> und <.aktion2>"
+	rule verb_zuerst, *, "<.aktion1:verb_zuerst> und <.aktion2:verb_zuerst>"
+	rule kein_akteur, *, "<.aktion1:kein_akteur> und <.aktion2:kein_akteur>"
+
+	rule perf, *, "<.aktion1:perf> und <.aktion2:perf>"
+	rule perf_verb_zuerst, *, "<.aktion1:perf_verb_zuerst> und <.aktion2:perf_verb_zuerst>"
+	rule perf_kein_akteur, *, "<.aktion1:perf_kein_akteur> und <.aktion2:perf_kein_akteur>"
+
+	rule fähig, *, "<.aktion1:fähig> und <.aktion2:fähig>"
+	rule fähig_verb_zuerst, *, "<.aktion1:fähig_verb_zuerst> und <.aktion2:fähig_verb_zuerst>"
+	rule fähig_kein_akteur, *, "<.aktion1:fähig_kein_akteur> und <.aktion2:fähig_kein_akteur>"
+
+	rule perf_fähig, *, "<.aktion1:perf_fähig> und <.aktion2:perf_fähig>"
+	rule perf_fähig_verb_zuerst, *, "<.aktion1:perf_fähig_verb_zuerst> und <.aktion2:perf_fähig_verb_zuerst>"
+	rule perf_fähig_kein_akteur, *, "<.aktion1:perf_fähig_kein_akteur> und <.aktion2:perf_fähig_kein_akteur>"
+
+	rule v_imperativ, *, "<.aktion1:v_imperativ> und <.aktion2:v_imperativ>"
+
+	rule inf_ohne_akteur, *, "<.aktion1:inf_ohne_akteur> und <.aktion2:inf_ohne_akteur>"
+
+
+rules aktion_und_mit_gleichem_ziel
+	super aktion_und
+	tag gleiches_ziel
+
+//AKTION-ODER
+rules aktion_oder_mit_gleichem_akteur
+	rule *, *, "<.aktion1> oder <.aktion2:kein_akteur>"
+	rule verb_zuerst, *, "<.aktion1:verb_zuerst> oder <.aktion2:kein_akteur>"
+	rule kein_akteur, *, "<.aktion1:kein_akteur> oder <.aktion2:kein_akteur>"
+
+	rule perf, *, "<.aktion1:perf> oder <.aktion2:perf_kein_akteur>"
+	rule perf_verb_zuerst, *, "<.aktion1:perf_verb_zuerst> oder <.aktion2:perf_kein_akteur>"
+	rule perf_kein_akteur, *, "<.aktion1:perf_kein_akteur> oder <.aktion2:perf_kein_akteur>"
+
+	rule fähig, *, "<.aktion1:fähig> oder <.aktion2:fähig_kein_akteur>"
+	rule fähig_verb_zuerst, *, "<.aktion1:fähig_verb_zuerst> oder <.aktion2:fähig_kein_akteur>"
+	rule fähig_kein_akteur, *, "<.aktion1:fähig_kein_akteur> oder <.aktion2:fähig_kein_akteur>"
+
+	rule perf_fähig, *, "<.aktion1:perf_fähig> oder <.aktion2:perf_fähig_kein_akteur>"
+	rule perf_fähig_verb_zuerst, *, "<.aktion1:perf_fähig_verb_zuerst> oder <.aktion2:perf_fähig_kein_akteur>"
+	rule perf_fähig_kein_akteur, *, "<.aktion1:perf_fähig_kein_akteur> oder <.aktion2:perf_fähig_kein_akteur>"
+
+	rule v_imperativ, *, "<.aktion1:v_imperativ> oder <.aktion2:v_imperativ>"
+
+	rule inf_ohne_akteur, *, "<.aktion1:inf_ohne_akteur> oder <.aktion2:inf_ohne_akteur>"
+
+rules aktion_oder
+	rule *, *, "<.aktion1> oder <.aktion2>"
+	rule verb_zuerst, *, "<.aktion1:verb_zuerst> oder <.aktion2:verb_zuerst>"
+	rule kein_akteur, *, "<.aktion1:kein_akteur> oder <.aktion2:kein_akteur>"
+
+	rule perf, *, "<.aktion1:perf> oder <.aktion2:perf>"
+	rule perf_verb_zuerst, *, "<.aktion1:perf_verb_zuerst> oder <.aktion2:perf_verb_zuerst>"
+	rule perf_kein_akteur, *, "<.aktion1:perf_kein_akteur> oder <.aktion2:perf_kein_akteur>"
+
+	rule fähig, *, "<.aktion1:fähig> oder <.aktion2:fähig>"
+	rule fähig_verb_zuerst, *, "<.aktion1:fähig_verb_zuerst> oder <.aktion2:fähig_verb_zuerst>"
+	rule fähig_kein_akteur, *, "<.aktion1:fähig_kein_akteur> oder <.aktion2:fähig_kein_akteur>"
+
+	rule perf_fähig, *, "<.aktion1:perf_fähig> oder <.aktion2:perf_fähig>"
+	rule perf_fähig_verb_zuerst, *, "<.aktion1:perf_fähig_verb_zuerst> oder <.aktion2:perf_fähig_verb_zuerst>"
+	rule perf_fähig_kein_akteur, *, "<.aktion1:perf_fähig_kein_akteur> oder <.aktion2:perf_fähig_kein_akteur>"
+
+	rule v_imperativ, *, "<.aktion1:v_imperativ> oder <.aktion2:v_imperativ>"
+
+	rule inf_ohne_akteur, *, "<.aktion1:inf_ohne_akteur> oder <.aktion2:inf_ohne_akteur>"
+
+rules aktion_oder_mit_gleichem_ziel
+	super aktion_oder
+	tag gleiches_ziel
+
+
+
+//VERSCHIEDENE VERBEN
+rules v_ieren
+	super verb
+	rule präs_1sg, *, "{stamm}e"
+	rule präs_2sg, *, "{stamm}en"
+	rule präs_3sg, *, "{stamm}t"
+	rule präs_1pl, *, "{stamm}en"
+	rule präs_2pl, *, "{stamm}t"
+	rule präs_3pl, *, "{stamm}en"
+	rule part_pass, *, "{stamm}t"
+	rule infinitiv, *, "{stamm}en"
+
+rules laden
+	super verb
+	tag akk
+	rule präs_1sg, *, "lade"
+	rule präs_2sg, *, "laden"
+	rule präs_3sg, *, "lädt"
+	rule präs_1pl, *, "laden"
+	rule präs_2pl, *, "ladet"
+	rule präs_3pl, *, "laden"
+	rule part_pass, *, "geladen"
+	rule infinitiv, *, "laden"
+
+rules konfigurieren
+	super v_ieren
+	tag akk
+	rule stamm, *, "konfigurier"
+
+rules definieren
+	super v_ieren
+	tag akk
+	rule stamm, *, "definier"
+
+rules speichern
+	super verb
+	tag akk
+	rule präs_1sg, *, "speichere"
+	rule präs_2sg, *, "speichern"
+	rule präs_3sg, *, "speichert"
+	rule präs_1pl, *, "speichern"
+	rule präs_2pl, *, "speichert"
+	rule präs_3pl, *, "speichern"
+	rule part_pass, *, "{als_}gespeichert"
+	rule infinitiv, *, "speichern{_als}"
+	rule imperativ, *, "speichern"
+
+	rule nach_objekt_, *, "{als_}"
+	rule _nach_objekt, *, "{_als}"
+
+	rule als_, .als, "als <.als:akk> "
+	rule als_, *, ""
+	rule _als, .als, " als <.als:akk>"
+	rule _als, *, ""
+
+
+rules ändern
+	super verb
+	tag akk
+	rule präs_1sg, *, "ändere"
+	rule präs_2sg, *, "ändern"
+	rule präs_3sg, *, "ändert"
+	rule präs_1pl, *, "ändern"
+	rule präs_2pl, *, "ändert"
+	rule präs_3pl, *, "ändern"
+	rule part_pass, *, "geändert"
+	rule infinitiv, *, "ändern"
+
+rules wählen
+	super verb
+	tag akk
+	rule präs_1sg, *, "wähle"
+	rule präs_2sg, *, "wählen"
+	rule präs_3sg, *, "wählt"
+	rule präs_1pl, *, "wählen"
+	rule präs_2pl, *, "wählt"
+	rule präs_3pl, *, "wählen"
+	rule part_pass, *, "gewählt"
+	rule infinitiv, *, "wählen" 
+
+rules gelten
+	super verb
+	tag akk
+	rule präs_1sg, *, "gelte"
+	rule präs_2sg, *, "gelten"
+	rule präs_3sg, *, "gilt"
+	rule präs_1pl, *, "gelten"
+	rule präs_2pl, *, "geltet"
+	rule präs_3pl, *, "gelten"
+	rule part_pass, *, "gegolten"
+	rule infinitiv, *, "gelten" 
+
+rules wollen
+	super verb
+	tag akk
+	rule präs_1sg, *, "will"
+	rule präs_2sg, *, "wollen"
+	rule präs_3sg, *, "will"
+	rule präs_1pl, *, "wollen"
+	rule präs_2pl, *, "wollt"
+	rule präs_3pl, *, "wollen"
+	rule part_pass, *, "gewollt"
+	rule infinitiv, *, "wollen" 
+
+	rule ziel_, .aktion, "<.aktion:inf_ohne_akteur> "
+	rule ziel_, *, ""
+	rule _ziel, .aktion, " <.aktion:inf_ohne_akteur>"
+	rule _ziel, *, ""
+
+rules drucken
+	super verb
+	tag akk
+	rule präs_1sg, *, "{aus}drucke"
+	rule präs_2sg, *, "{aus}drucken"
+	rule präs_3sg, *, "{aus}druckt"
+	rule präs_1pl, *, "{aus}drucken"
+	rule präs_2pl, *, "{aus}druckt"
+	rule präs_3pl, *, "{aus}drucken"
+	rule part_pass, *, "{aus}gedruckt"
+	rule infinitiv, *, "{aus}drucken" 
+
+	rule aus, .aus, "aus <.aus:dat> "
+	rule aus, *, ""
+
+rules ablegen
+	super verb
+	tag akk
+	rule präs_1sg, *, "speichere"
+	rule präs_2sg, *, "speichern"
+	rule präs_3sg, *, "speichert"
+	rule präs_1pl, *, "speichern"
+	rule präs_2pl, *, "speichert"
+	rule präs_3pl, *, "speichern"
+	rule part_pass, *, "gespeichert"
+	rule infinitiv, *, "speichern" 
+
+rules finden
+	super verb
+	tag akk
+	rule präs_1sg, *, "finde"
+	rule präs_2sg, *, "finden"
+	rule präs_3sg, *, "findet"
+	rule präs_1pl, *, "finden"
+	rule präs_2pl, *, "findet"
+	rule präs_3pl, *, "finden"
+	rule part_pass, *, "gefunden"
+	rule infinitiv, *, "finden" 
+
+rules hinzufügen
+	super verb
+	tag akk
+	rule präs_1sg, *, "füge"
+	rule präs_2sg, *, "fügen"
+	rule präs_3sg, *, "fügt"
+	rule präs_1pl, *, "fügen"
+	rule präs_2pl, *, "fügt"
+	rule präs_3pl, *, "fügen"
+	rule part_pass, *, "{zu_}hinzugefügt"
+	rule infinitiv, *, "{zu_}hinzufügen" 
+	rule imperativ, *, "fügen"
+
+	rule nach_objekt_, *, "{zu_}hinzu "
+	rule _nach_objekt, *, " {zu_}hinzu"
+
+	rule zu_, .zu, "zu <.zu:dat> "
+	rule zu_, *, ""
+
+rules klicken
+	super verb
+	tag akk
+	rule präs_1sg, *, "klicke"
+	rule präs_2sg, *, "klicken"
+	rule präs_3sg, *, "klickt"
+	rule präs_1pl, *, "klicken"
+	rule präs_2pl, *, "klickt"
+	rule präs_3pl, *, "klicken"
+	rule part_pass, *, "geklickt"
+	rule infinitiv, *, "klicken" 
+
+	rule präp_, *, "auf "
+
+rules kaufen
+	super verb
+	tag akk
+	rule präs_1sg, *, "kaufe"
+	rule präs_2sg, *, "kaufen"
+	rule präs_3sg, *, "kauft"
+	rule präs_1pl, *, "kaufen"
+	rule präs_2pl, *, "kauft"
+	rule präs_3pl, *, "kaufen"
+	rule part_pass, *, "gekauft"
+	rule infinitiv, *, "kaufen" 
+
+rules herunterladen
+	super verb
+	tag akk
+	rule präs_1sg, *, "lade"
+	rule präs_2sg, *, "laden"
+	rule präs_3sg, *, "lädt"
+	rule präs_1pl, *, "laden"
+	rule präs_2pl, *, "ladet"
+	rule präs_3pl, *, "laden"
+	rule part_pass, *, "heruntergeladen"
+	rule infinitiv, *, "herunterladen"
+	rule imperativ, *, "laden"
+
+	rule nach_objekt_, *, "herunter "
+	rule _nach_objekt, *, " herunter"
+
+rules überprüfen
+	super verb
+	tag akk
+	rule präs_1sg, *, "überprüfe"
+	rule präs_2sg, *, "überprüfen"
+	rule präs_3sg, *, "überprüft"
+	rule präs_1pl, *, "überprüfen"
+	rule präs_2pl, *, "überprüft"
+	rule präs_3pl, *, "überprüfen"
+	rule part_pass, *, "überprüft"
+	rule infinitiv, *, "überprüfen" 
+
+rules versuchen
+	super verb
+	tag akk
+	rule präs_1sg, *, "versuche"
+	rule präs_2sg, *, "versuchen"
+	rule präs_3sg, *, "versucht"
+	rule präs_1pl, *, "versuchen"
+	rule präs_2pl, *, "versucht"
+	rule präs_3pl, *, "versuchen"
+	rule part_pass, *, "versucht"
+	rule infinitiv, *, "versuchen" 
+
+
+rules erstellen
+	super verb
+	tag akk
+	rule präs_1sg, *, "erstelle"
+	rule präs_2sg, *, "erstellen"
+	rule präs_3sg, *, "erstellt"
+	rule präs_1pl, *, "erstellen"
+	rule präs_2pl, *, "erstellt"
+	rule präs_3pl, *, "erstellen"
+	rule part_pass, *, "erstellt"
+	rule infinitiv, *, "erstellen"
+
+rules interpretieren
+	super verb
+	tag akk
+	rule präs_1sg, *, "interpretiere"
+	rule präs_2sg, *, "interpretieren"
+	rule präs_3sg, *, "interpretiert"
+	rule präs_1pl, *, "interpretieren"
+	rule präs_2pl, *, "interpretiert"
+	rule präs_3pl, *, "interpretieren"
+	rule part_pass, *, "{als_}interpretiert"
+	rule infinitiv, *, "{als_}interpretieren"
+	rule imperativ, *, "interpretieren"
+
+	rule nach_objekt_, *, "{als_}"
+	rule _nach_objekt, *, "{_als}"
+
+	rule als_, .als, "als <.als:akk> "
+	rule als_, *, ""
+	rule _als, .als, " als <.als:akk>"
+	rule _als, *, ""
+
+rules verkleinern
+	super verb
+	tag akk
+	rule präs_1sg, *, "verkleinere"
+	rule präs_2sg, *, "verkleinern"
+	rule präs_3sg, *, "verkleinert"
+	rule präs_1pl, *, "verkleinern"
+	rule präs_2pl, *, "verkleinert"
+	rule präs_3pl, *, "verkleinern"
+	rule part_pass, *, "verkleinert{_damit}"
+	rule infinitiv, *, "verkleinern{_damit}"
+	rule imperativ, *, "verkleinern"
+
+	rule nach_objekt_, *, "{damit_}"
+	rule _nach_objekt, *, "{_damit}"
+
+	rule damit_, .damit_passen_in, "damit {ziel} {in} <.damit_passen_in:akk> {passen_ziel} "
+	rule damit_, *, ""
+	rule _damit, .damit_passen_in, " damit {ziel} {in} <.damit_passen_in:akk> {passen_ziel}"
+	rule _damit, *, ""
+
+	rule ziel, .ziel[ersteperson], "ich"
+	rule ziel, .ziel[zweiteperson], "Sie"
+	rule ziel, (.ziel.anzahl[plural] & !(.ziel[singular])), "sie"
+	rule ziel, .ziel[weib], "sie"
+	rule ziel, .ziel[säch], "es"
+	rule ziel, .ziel[männ], "er"
+
+	rule passen_ziel, (.ziel[1pers].anzahl[plural] & !(.ziel[singular])), "passen"
+	rule passen_ziel, (.ziel[2pers].anzahl[plural] & !(.ziel[singular])), "passt"
+	rule passen_ziel, (.ziel[3pers].anzahl[plural] & !(.ziel[singular])), "passen"
+	rule passen_ziel, .ziel[1pers], "passe"
+	rule passen_ziel, .ziel[2pers], "passen"
+	rule passen_ziel, .ziel[3pers], "passt"
+
+	rule in, .damit_passen_in.welcher, "in"
+	rule in, .damit_passen_in.anzahl[plural], "in die"
+	rule in, .damit_passen_in[männ], "in den"
+	rule in, .damit_passen_in[weib], "in die"
+	rule in, *, "ins"
+
+
+rules ausführen
+	super verb
+	tag akk
+	rule präs_1sg, *, "führe"
+	rule präs_2sg, *, "führen"
+	rule präs_3sg, *, "führt"
+	rule präs_1pl, *, "führen"
+	rule präs_2pl, *, "führt"
+	rule präs_3pl, *, "führen"
+	rule part_pass, *, "ausgeführt"
+	rule infinitiv, *, "ausführen"
+	rule imperativ, *, "führen"
+
+	rule nach_objekt_, *, "aus "
+	rule _nach_objekt, *, " aus"
+
+
+rules in_ort_behalten
+	super verb
+	tag akk
+	rule präs_1sg, *, "behalte"
+	rule präs_2sg, *, "behalten"
+	rule präs_3sg, *, "behaltet"
+	rule präs_1pl, *, "behalten"
+	rule präs_2pl, *, "behaltet"
+	rule präs_3pl, *, "behalten"
+	rule part_pass, *, "behaltet{_ort}"
+	rule infinitiv, *, "{ort_}behalten" 
+	rule imperativ, *, "behalten"
+
+	rule nach_objekt_, *, "{ort_}"
+	rule _nach_objekt, *, "{_ort}"
+
+	rule ort_, .ort, "<.ort> "
+	rule ort_, *, ""
+
+	rule _ort, .ort, " <.ort>"
+	rule _ort, *, ""
+
+rules musik_abspielen
+	super verb
+	tag akk
+	rule präs_1sg, *, "spiele"
+	rule präs_2sg, *, "spielen"
+	rule präs_3sg, *, "spielt"
+	rule präs_1pl, *, "spielen"
+	rule präs_2pl, *, "spielt"
+	rule präs_3pl, *, "spielen"
+	rule part_pass, *, "abgespielt"
+	rule infinitiv, *, "abspielen" 
+	rule imperativ, *, "spielen"
+
+	rule nach_objekt_, *, "ab "
+	rule _nach_objekt, *, " ab"
+
+rules vergleichen
+	super verb
+	tag akk
+	rule präs_1sg, *, "vergleiche"
+	rule präs_2sg, *, "vergleichen"
+	rule präs_3sg, *, "vergleicht"
+	rule präs_1pl, *, "vergleichen"
+	rule präs_2pl, *, "vergleicht"
+	rule präs_3pl, *, "vergleichen"
+	rule part_pass, *, "verglichen"
+	rule infinitiv, *, "vergleichen" 
+
+rules zulassen
+	super verb
+	tag akk
+	rule präs_1sg, *, "lasse"
+	rule präs_2sg, *, "lassen"
+	rule präs_3sg, *, "lässt"
+	rule präs_1pl, *, "lassen"
+	rule präs_2pl, *, "lässt"
+	rule präs_3pl, *, "lassen"
+	rule part_pass, *, "zugelassen"
+	rule infinitiv, *, "zulassen" 
+	rule imperativ, *, "lassen"
+
+	rule nach_objekt_, *, "zu "
+	rule _nach_objekt, *, " zu"
+
+rules verwenden
+	super verb
+	tag akk
+	rule präs_1sg, *, "verwende"
+	rule präs_2sg, *, "verwenden"
+	rule präs_3sg, *, "verwendet"
+	rule präs_1pl, *, "verwenden"
+	rule präs_2pl, *, "verwendet"
+	rule präs_3pl, *, "verwenden"
+	rule part_pass, *, "verwendet"
+	rule infinitiv, *, "verwenden"
+
+rules erhöhen
+	super verb
+	tag akk
+	rule präs_1sg, *, "erhöhe"
+	rule präs_2sg, *, "erhöhen"
+	rule präs_3sg, *, "erhöht"
+	rule präs_1pl, *, "erhöhen"
+	rule präs_2pl, *, "erhöht"
+	rule präs_3pl, *, "erhöhen"
+	rule part_pass, *, "erhöht"
+	rule infinitiv, *, "erhöhen"
+
+rules bearbeiten
+	super verb
+	tag akk
+	rule präs_1sg, *, "bearbeite"
+	rule präs_2sg, *, "bearbeiten"
+	rule präs_3sg, *, "bearbeitet"
+	rule präs_1pl, *, "bearbeiten"
+	rule präs_2pl, *, "bearbeitet"
+	rule präs_3pl, *, "bearbeiten"
+	rule part_pass, *, "bearbeitet"
+	rule infinitiv, *, "bearbeiten"
+
+rules schliessen
+	super verb
+	tag akk
+	rule präs_1sg, *, "schliesse"
+	rule präs_2sg, *, "schliessen"
+	rule präs_3sg, *, "schliesst"
+	rule präs_1pl, *, "schliessen"
+	rule präs_2pl, *, "schliesst"
+	rule präs_3pl, *, "schliessen"
+	rule part_pass, *, "geschlossen"
+	rule infinitiv, *, "schliessen"
+
+rules neu_laden
+	super verb
+	tag akk
+	rule präs_1sg, *, "lade"
+	rule präs_2sg, *, "laden"
+	rule präs_3sg, *, "lädt"
+	rule präs_1pl, *, "laden"
+	rule präs_2pl, *, "lädt"
+	rule präs_3pl, *, "laden"
+	rule part_pass, *, "neu geladen"
+	rule infinitiv, *, "neu laden" 
+	rule imperativ, *, "laden"
+
+	rule nach_objekt_, *, "neu "
+	rule _nach_objekt, *, " neu"
+
+rules rückgängig_machen
+	super verb
+	tag akk
+	rule präs_1sg, *, "mache"
+	rule präs_2sg, *, "machen"
+	rule präs_3sg, *, "macht"
+	rule präs_1pl, *, "machen"
+	rule präs_2pl, *, "macht"
+	rule präs_3pl, *, "machen"
+	rule part_pass, *, "rückgängig gemacht"
+	rule infinitiv, *, "rückgängig machen" 
+	rule imperativ, *, "machen"
+
+	rule nach_objekt_, *, "rückgängig  "
+	rule _nach_objekt, *, " rückgängig"
+
+rules entfernen
+	super verb
+	tag akk
+	rule präs_1sg, *, "entferne"
+	rule präs_2sg, *, "entfernen"
+	rule präs_3sg, *, "entfernt"
+	rule präs_1pl, *, "entfernen"
+	rule präs_2pl, *, "entfernt"
+	rule präs_3pl, *, "entfernen"
+	rule part_pass, *, "{aus_}entfernt"
+	rule infinitiv, *, "{aus_}entfernen" 
+	rule imperativ, *, "entfernen"
+
+	rule nach_objekt_, *, "{aus_} "
+	rule _nach_objekt, *, "{_aus}"
+
+	rule aus_, .aus, "aus <.aus:dat> "
+	rule aus_, *, ""
+
+	rule _aus, .aus, " aus <.aus:dat>"
+	rule _aus, *, ""
+
+rules löschen
+	super verb
+	tag akk
+	rule präs_1sg, *, "lösche"
+	rule präs_2sg, *, "löschen"
+	rule präs_3sg, *, "löscht"
+	rule präs_1pl, *, "löschen"
+	rule präs_2pl, *, "löscht"
+	rule präs_3pl, *, "löschen"
+	rule part_pass, *, "gelöscht"
+	rule infinitiv, *, "löschen"
+
+rules blockieren
+	super verb
+	tag akk
+	rule präs_1sg, *, "blockiere"
+	rule präs_2sg, *, "blockieren"
+	rule präs_3sg, *, "blockiert"
+	rule präs_1pl, *, "blockieren"
+	rule präs_2pl, *, "blockiert"
+	rule präs_3pl, *, "blockieren"
+	rule part_pass, *, "blockiert"
+	rule infinitiv, *, "blockieren"
+
+rules anzeigen
+	super verb
+	tag akk
+	rule präs_1sg, *, "zeige"
+	rule präs_2sg, *, "zeigen"
+	rule präs_3sg, *, "zeigt"
+	rule präs_1pl, *, "zeigen"
+	rule präs_2pl, *, "zeigt"
+	rule präs_3pl, *, "zeigen"
+	rule part_pass, *, "angezeigt"
+	rule infinitiv, *, "anzeigen" 
+	rule imperativ, *, "zeigen"
+
+	rule nach_objekt_, *, "an "
+	rule _nach_objekt, *, " an"
+
+rules abbrechen
+	super verb
+	tag akk
+	rule präs_1sg, *, "breche"
+	rule präs_2sg, *, "brechen"
+	rule präs_3sg, *, "brecht"
+	rule präs_1pl, *, "brechen"
+	rule präs_2pl, *, "brecht"
+	rule präs_3pl, *, "brechen"
+	rule part_pass, *, "abgebrochen"
+	rule infinitiv, *, "abbrechen" 
+	rule imperativ, *, "brechen"
+
+	rule nach_objekt_, *, "ab "
+	rule _nach_objekt, *, " ab"
+
+rules anzeigen
+	super verb
+	tag akk
+	rule präs_1sg, *, "zeige"
+	rule präs_2sg, *, "zeigen"
+	rule präs_3sg, *, "zeigt"
+	rule präs_1pl, *, "zeigen"
+	rule präs_2pl, *, "zeigt"
+	rule präs_3pl, *, "zeigen"
+	rule part_pass, *, "angezeigt"
+	rule infinitiv, *, "anzeigen" 
+	rule imperativ, *, "zeigen"
+
+	rule nach_objekt_, *, "an "
+	rule _nach_objekt, *, " an"
+
+rules starten
+	super verb
+	tag akk
+	rule präs_1sg, *, "starte"
+	rule präs_2sg, *, "starten"
+	rule präs_3sg, *, "startet"
+	rule präs_1pl, *, "starten"
+	rule präs_2pl, *, "startet"
+	rule präs_3pl, *, "starten"
+	rule part_pass, *, "gestartet"
+	rule infinitiv, *, "starten"
+
+rules ersetzen
+	super verb
+	tag akk
+	rule präs_1sg, *, "ersetze"
+	rule präs_2sg, *, "ersetzen"
+	rule präs_3sg, *, "ersetzt"
+	rule präs_1pl, *, "ersetzen"
+	rule präs_2pl, *, "ersetzt"
+	rule präs_3pl, *, "ersetzen"
+	rule part_pass, *, "ersetzt"
+	rule infinitiv, *, "ersetzen"
+
+rules kopieren
+	super verb
+	tag akk
+	rule präs_1sg, *, "kopiere"
+	rule präs_2sg, *, "kopieren"
+	rule präs_3sg, *, "kopiert"
+	rule präs_1pl, *, "kopieren"
+	rule präs_2pl, *, "kopiert"
+	rule präs_3pl, *, "kopieren"
+	rule part_pass, *, "{zu_}kopiert"
+	rule infinitiv, *, "{zu_}kopieren" 
+	rule imperativ, *, "kopieren"
+
+	rule nach_objekt_, *, "{zu_} "
+	rule _nach_objekt, *, "{_zu}"
+
+	rule zu_, .aus, "nach <.nach:dat> "
+	rule zu_, *, ""
+
+	rule _zu, .aus, " nach <.nach:dat>"
+	rule _zu, *, ""
+
+rules lesen
+	super verb
+	tag akk
+	rule präs_1sg, *, "lese"
+	rule präs_2sg, *, "lesen"
+	rule präs_3sg, *, "liest"
+	rule präs_1pl, *, "lesen"
+	rule präs_2pl, *, "liest"
+	rule präs_3pl, *, "lesen"
+	rule part_pass, *, "gelesen"
+	rule infinitiv, *, "lesen"
+
+rules suchen
+	super verb
+	tag akk
+	rule präs_1sg, *, "suche"
+	rule präs_2sg, *, "suchen"
+	rule präs_3sg, *, "sucht"
+	rule präs_1pl, *, "suchen"
+	rule präs_2pl, *, "sucht"
+	rule präs_3pl, *, "suchen"
+	rule part_pass, *, "{nach_}gesucht"
+	rule infinitiv, *, "{nach_}suchen"
+	rule imperativ, *, "suchen"
+
+	rule nach_objekt_, *, "{nach_} "
+	rule _nach_objekt, *, "{_nach}"
+
+	rule nach_, .aus, "nach <.nach:dat> "
+	rule nach_, *, ""
+
+	rule _nach, .aus, " nach <.nach:dat>"
+	rule _nach, *, ""
+
+rules browsen
+	super verb
+	tag akk
+	rule präs_1sg, *, "browse"
+	rule präs_2sg, *, "browst"
+	rule präs_3sg, *, "browst"
+	rule präs_1pl, *, "browsen"
+	rule präs_2pl, *, "browst"
+	rule präs_3pl, *, "browsen"
+	rule part_pass, *, "gebrowst"
+	rule infinitiv, *, "browsen"
+
+
+
+
+//NOMEN
+rules nomen
+	tag 3pers
+
+	rule *, *, "{nom}"
+
+	//NOMINATIV
+	rule nom, (.anzahl[plural] & !(=[singular])), "{art_nom}{adj_nom}{plural}{bezeichnung}{ort}"
+	rule nom, *, "{art_nom}{adj_nom}{singular}{bezeichnung}{ort}"
+	//AKKUSATIV
+	rule akk, (.anzahl[plural] & !(=[singular])), "{art_akk}{adj_akk}{plural}{bezeichnung}{ort}"
+	rule akk, *, "{art_akk}{adj_akk}{singular_akk}{bezeichnung}{ort}"
+	//DATIV
+	rule dat, (.anzahl[plural] & !(=[singular])), "{art_dat}{adj_dat}{plural_dat}{bezeichnung}{ort}"
+	rule dat, *, "{art_dat}{adj_dat}{singular_dat}{bezeichnung}{ort}"
+
+
+	//NOMINATIV, PLURAL, IHR
+	rule art_nom, (.anzahl[plural] & !(=[singular]) & .welcher[ihr]), "{anzahl_vor_welcher_}ihre{_anzahl_nach_welcher} "
+
+	//NOMINATIV, PLURAL, DIESE
+	rule art_nom, (.anzahl[plural] & !(=[singular]) & .welcher[dieses]), "{anzahl_vor_welcher_}diese{_anzahl_nach_welcher} "
+
+	//NOMINATIV, PLURAL, FOLGENDE
+	rule art_nom, (.anzahl[plural] & !(=[singular]) & .welcher[folgende]), "{anzahl_vor_welcher_}folgende{_anzahl_nach_welcher} "
+
+	//NOMINATIV, PLURAL, DER
+	//nominativ, plural, der, alle geschlechter
+	rule art_nom, (.anzahl[plural] & !(=[singular]) & (=[spezifisch] | .welcher[spezifisch])), "{anzahl_vor_welcher_}die{_anzahl_nach_welcher} "
+
+	//NOMINATIV, PLURAL, EIN
+	//nominativ, plural, ein, alle geschlechter
+	rule art_nom, (.anzahl[plural] & !(=[singular])), "{anzahl}"
+
+	//NOMINATIV, SINGULAR, IHR
+	//nominativ, singular, der, weib
+	rule art_nom, (=[weib] & .welcher[ihr]), "ihre "
+	//nominativ, singular, der, säch
+	rule art_nom, (=[säch] & .welcher[ihr]), "ihr "
+	//nominativ singular, der, männ
+	rule art_nom, (=[männ] & .welcher[ihr]), "ihr "
+
+	//NOMINATIV, SINGULAR, FOLGENDE
+	//nominativ, singular, der, weib
+	rule art_nom, (=[weib] & .welcher[folgende]), "die folgende "
+	//nominativ, singular, der, säch
+	rule art_nom, (=[säch] & .welcher[folgende]), "das folgende "
+	//nominativ singular, der, männ
+	rule art_nom, (=[männ] & .welcher[folgende]), "der folgende "
+
+	//NOMINATIV, SINGULAR, DIESES
+	//nominativ, singular, der, weib
+	rule art_nom, (=[weib] & .welcher[dieses]), "diese "
+	//nominativ, singular, der, säch
+	rule art_nom, (=[säch] & .welcher[dieses]), "dieses "
+	//nominativ singular, der, männ
+	rule art_nom, (=[männ] & .welcher[dieses]), "dieser "
+
+	//NOMINATIV, SINGULAR, DER
+	//nominativ, singular, der, weib
+	rule art_nom, (=[weib] & (=[spezifisch] | .welcher[spezifisch])), "die "
+	//nominativ, singular, der, säch
+	rule art_nom, (=[säch] & (=[spezifisch] | .welcher[spezifisch])), "das "
+	//nominativ singular, der, männ
+	rule art_nom, (=[männ] & (=[spezifisch] | .welcher[spezifisch])), "der "
+
+	//NOMINATIV, SINGULAR, EIN
+	//nominativ, singular, ein, weiblich
+	rule art_nom, (.welcher[unspezifisch] & =[weib]), "eine "
+	//nominativ, singular, ein, sächlich
+	rule art_nom, (.welcher[unspezifisch] & =[säch]), "ein "
+	//nominativ singular, ein, männlich
+	rule art_nom, (.welcher[unspezifisch] & =[männ]), "ein "
+
+	//NOMINATIV, KEINE INFORMATION
+	rule art_nom, *, ""
+
+
+
+	//AKKUSATIV, PLURAL, IHR
+	rule art_akk, (.anzahl[plural] & !(=[singular]) & .welcher[ihr]), "{anzahl_vor_welcher_}ihre{_anzahl_nach_welcher} "
+
+	//AKKUSATIV, PLURAL, DIESE
+	rule art_akk, (.anzahl[plural] & !(=[singular]) & .welcher[dieses]), "{anzahl_vor_welcher_}diese{_anzahl_nach_welcher} "
+
+	//AKKUSATIV, PLURAL, FOLGENDE
+	rule art_akk, (.anzahl[plural] & !(=[singular]) & .welcher[folgende]), "{anzahl_vor_welcher_}folgenden{_anzahl_nach_welcher} "
+
+	//AKKUSATIV, PLURAL, DER
+	//akkusativ, plural, der, alle geschlechter
+	rule art_akk, (.anzahl[plural] & !(=[singular]) & (=[spezifisch] | .welcher[spezifisch])), "{anzahl_vor_welcher_}die{_anzahl_nach_welcher} "
+
+	//AKKUSATIV, PLURAL, EIN
+	//akkusativ, plural, ein, alle geschlechter
+	rule art_akk, (.anzahl[plural] & !(=[singular])), "{anzahl}"
+
+	//AKKUSATIV, SINGULAR, IHR
+	//akkusativ, singular, der, weib
+	rule art_akk, (=[weib] & .welcher[ihr]), "ihre "
+	//akkusativ, singular, der, säch
+	rule art_akk, (=[säch] & .welcher[ihr]), "ihr "
+	//akkusativ singular, der, männ
+	rule art_akk, (=[männ] & .welcher[ihr]), "ihren "
+
+	//AKKUSATIV, SINGULAR, DIESES
+	//akkusativ, singular, der, weib
+	rule art_akk, (=[weib] & .welcher[dieses]), "diese "
+	//akkusativ, singular, der, säch
+	rule art_akk, (=[säch] & .welcher[dieses]), "dieses "
+	//akkusativ singular, der, männ
+	rule art_akk, (=[männ] & .welcher[dieses]), "diesen "
+
+	//AKKUSATIV, SINGULAR, FOLGENDE
+	//akkusativ, singular, der, weib
+	rule art_akk, (=[weib] & .welcher[folgende]), "die folgende "
+	//akkusativ, singular, der, säch
+	rule art_akk, (=[säch] & .welcher[folgende]), "das folgende "
+	//akkusativ singular, der, männ
+	rule art_akk, (=[männ] & .welcher[folgende]), "den folgenden "
+
+	//AKKUSATIV, SINGULAR, DER
+	//akkusativ, singular, der, weib
+	rule art_akk, (=[weib] & (=[spezifisch] | .welcher[spezifisch])), "die "
+	//akkusativ, singular, der, säch
+	rule art_akk, (=[säch] & (=[spezifisch] | .welcher[spezifisch])), "das "
+	//akkusativ singular, der, männ
+	rule art_akk, (=[männ] & (=[spezifisch] | .welcher[spezifisch])), "den "
+
+	//AKKUSATIV, SINGULAR, EIN
+	//akkusativ, singular, ein, weiblich
+	rule art_akk, (.welcher[unspezifisch] & =[weib]), "eine "
+	//akkusativ, singular, ein, sächlich
+	rule art_akk, (.welcher[unspezifisch] & =[säch]), "ein "
+	//akkusativ singular, ein, männlich
+	rule art_akk, (.welcher[unspezifisch] & =[männ]), "einen "
+
+	//AKKUSATIV, KEINE INFORMATION
+	rule art_akk, *, ""
+
+
+
+
+	//DATIV, PLURAL, IHR
+	rule art_dat, (.anzahl[plural] & !(=[singular]) & .welcher[ihr]), "{anzahl_vor_welcher_dat_}ihren{_anzahl_nach_welcher_dat} "
+
+	//DATIV, PLURAL, DIESE
+	rule art_dat, (.anzahl[plural] & !(=[singular]) & .welcher[dieses]), "{anzahl_vor_welcher_dat_}diesen{_anzahl_nach_welcher_dat} "
+
+	//DATIV, PLURAL, FOLGENDE
+	rule art_dat, (.anzahl[plural] & !(=[singular]) & .welcher[folgende]), "{anzahl_vor_welcher_dat_}folgenden{_anzahl_nach_welcher_dat} "
+
+	//DATIV, PLURAL, DER
+	//DATIV, plural, der, alle geschlechter
+	rule art_dat, (.anzahl[plural] & !(=[singular]) & (=[spezifisch] | .welcher[spezifisch])), "{anzahl_vor_welcher_dat_}den{_anzahl_nach_welcher_dat} "
+
+	//DATIV, PLURAL, EIN
+	//DATIV, plural, ein, alle geschlechter
+	rule art_dat, (.anzahl[plural] & !(=[singular])), "{anzahl_dat}"
+
+	//DATIV, SINGULAR, IHR
+	//DATIV, singular, der, weib
+	rule art_dat, (=[weib] & .welcher[ihr]), "ihrer "
+	//DATIV, singular, der, säch
+	rule art_dat, (=[säch] & .welcher[ihr]), "ihrem "
+	//DATIV singular, der, männ
+	rule art_dat, (=[männ] & .welcher[ihr]), "ihrem "
+
+	//DATIV, SINGULAR, DIESES
+	//DATIV, singular, der, weib
+	rule art_dat, (=[weib] & .welcher[dieses]), "dieser "
+	//DATIV, singular, der, säch
+	rule art_dat, (=[säch] & .welcher[dieses]), "diesem "
+	//DATIV singular, der, männ
+	rule art_dat, (=[männ] & .welcher[dieses]), "diesem "
+
+	//DATIV, SINGULAR, FOLGENDE
+	//DATIV, singular, der, weib
+	rule art_dat, (=[weib] & .welcher[folgende]), "der folgenden "
+	//DATIV, singular, der, säch
+	rule art_dat, (=[säch] & .welcher[folgende]), "dem folgenden "
+	//DATIV singular, der, männ
+	rule art_dat, (=[männ] & .welcher[folgende]), "dem folgenden "
+
+	//DATIV, SINGULAR, DER
+	//DATIV, singular, der, weib
+	rule art_dat, (=[weib] & (=[spezifisch] | .welcher[spezifisch])), "der "
+	//DATIV, singular, der, säch
+	rule art_dat, (=[säch] & (=[spezifisch] | .welcher[spezifisch])), "dem "
+	//DATIV singular, der, männ
+	rule art_dat, (=[männ] & (=[spezifisch] | .welcher[spezifisch])), "dem "
+
+	//DATIV, SINGULAR, EIN
+	//DATIV, singular, ein, weiblich
+	rule art_dat, (.welcher[unspezifisch] & =[weib]), "einer "
+	//DATIV, singular, ein, sächlich
+	rule art_dat, (.welcher[unspezifisch] & =[säch]), "einem "
+	//DATIV singular, ein, männlich
+	rule art_dat, (.welcher[unspezifisch] & =[männ]), "einem "
+
+	//DATIV, KEINE INFORMATION
+	rule art_dat, *, ""
+
+
+
+
+	//ANZAHL
+	rule anzahl, .anzahl[zeigen], "<.anzahl> "
+	rule anzahl, *, ""
+	rule anzahl_dat, .anzahl[zeigen], "<.anzahl:dat> "
+	rule anzahl_dat, *, ""
+
+	rule anzahl_vor_welcher_, (.anzahl[zeigen] & !(.anzahl[nach_welcher])), "<.anzahl> "
+	rule anzahl_vor_welcher_, *, ""
+	rule anzahl_vor_welcher_dat_, (.anzahl[zeigen] & !(.anzahl[nach_welcher])), "<.anzahl:dat> "
+	rule anzahl_vor_welcher_dat_, *, ""
+
+	rule _anzahl_nach_welcher, (.anzahl[zeigen] & .anzahl[nach_welcher]), " <.anzahl:nach_welcher>"
+	rule _anzahl_nach_welcher, *, ""
+	rule _anzahl_nach_welcher_dat, (.anzahl[zeigen] & .anzahl[nach_welcher]), "<.anzahl:nach_welcher_dat>"
+	rule _anzahl_nach_welcher_dat, *, ""
+
+
+	//ORT
+	rule ort, .ort, " <.ort>"
+	rule ort, *, ""
+
+
+
+	//ADJEKTIV
+	rule adj_nom, .eigenschaft, "<.eigenschaft:nom> "
+	rule adj_nom, *, ""
+	rule adj_akk, .eigenschaft, "<.eigenschaft:akk> "
+	rule adj_akk, *, ""
+	rule adj_dat, .eigenschaft, "<.eigenschaft:dat> "
+	rule adj_dat, *, ""
+
+	//BEZEICHNUNG
+	rule bezeichnung, .bezeichnung, " <.bezeichnung>"
+	rule bezeichnung, *, ""
+
+	//GROSSSCHREIBEN  MIT ARTEN ("TYPE")
+	rule singular, .art[bindestrich], "<+.art:art>-<+=:s>"
+	rule singular, .art, "<+.art:art><=:s>"
+	rule singular, *, "<+=:s>"
+	rule singular_dat, .art[bindestrich], "<+.art:art>-<+=:s_dat>"
+	rule singular_dat, .art, "<+.art:art><=:s_dat>"
+	rule singular_dat, *, "<+=:s_dat>"
+	rule singular_akk, .art[bindestrich], "<+.art:art>-<+=:s_akk>"
+	rule singular_akk, .art, "<+.art:art><=:s_akk>"
+	rule singular_akk, *, "<+=:s_akk>"
+	rule plural, .art[bindestrich], "<+.art:art>-<+=:p>"
+	rule plural, .art, "<+.art:art><=:p>"
+	rule plural, *, "<+=:p>"
+	rule plural_dat, .art[bindestrich], "<+.art:art>-<+=:p_dat>"
+	rule plural_dat, .art, "<+.art:art><=:p_dat>"
+	rule plural_dat, *, "<+=:p_dat>"
+
+	//ART
+	rule art, *, "{p}"
+
+	//PLURAL FÜR DAS DATIV
+	rule p_dat, *, "{p}"
+
+	//SINGULAR FÜR DAS DATIV
+	rule s_dat, *, "{s}"
+	rule s_akk, *, "{s}"
+
+
+
+
+//DING-UND
+rules ding_und
+	rule nom, *, "<.ding1:nom> und <.ding2:nom>
+	rule akk, *, "<.ding1:akk> und <.ding2:akk>"
+
+
+
+//VERSCHIEDENE NOMEN
+rules sie
+	tag 2pers
+	rule nom, *, "Sie"
+	rule akk, *, "Sie"
+
+
+rules benanntes_ding
+	super nomen
+	tag 3pers
+	tag säch
+	tag bindestrich
+	rule s, *, "<.name>"
+	rule p, *, "<.name>"
+
+rules internet
+	super nomen
+	tag säch
+	rule s, *, "internet"
+	rule p, *, "internet"
+
+rules suchmaschine
+	super nomen
+	tag weib
+	rule s, *, "suchmaschine"
+	rule p, *, "suchmaschinen"
+
+rules einstellung
+	super nomen
+	tag weib
+	rule s, *, "einstellung{für}"
+	rule p, *, "einstellungen{für}"
+
+	rule für, .für, " für <.für:akk>"
+	rule für, *, ""
+
+rules zugriff
+	super nomen
+	tag männ
+	rule s, .auf, "zugriff auf <.auf:akk>"
+	rule s, *, "zugriff"
+	rule p, *, "{s}"
+	rule art, *, "zugriffs"
+
+rules quelle
+	super nomen
+	tag weib
+	rule s, *, "quelle"
+	rule p, *, "quellen"
+
+rules daten
+	super nomen
+	tag weib
+	rule s, *, "daten"
+	rule p, *, "daten"
+
+rules proxy
+	super nomen
+	tag männ
+	tag bindestrich
+	rule s, *, "proxy"
+	rule p, *, "proxys"
+	rule art, *, "proxy"
+
+rules dokument
+	super nomen
+	tag säch
+	rule s, *, "dokument"
+	rule p, *, "dokumente"
+	rule p_dat, *, "dokumenten"
+	rule art, *, "dokuments"
+
+rules formel
+	super nomen
+	tag weib
+	rule s, *, "formel"
+	rule p, *, "formeln"
+	rule art, *, "formel"
+
+rules option
+	super nomen
+	tag weib
+	rule s, *, "option"
+	rule p, *, "optionen"
+	rule art, *, "options"
+
+rules format
+	super nomen
+	tag säch
+	rule s, *, "format"
+	rule p, *, "formate"
+	rule p_dat, *, "formaten"
+
+rules tabelle
+	super nomen
+	tag weib
+	rule s, *, "tabelle"
+	rule p, *, "tabellen"
+
+rules tab
+	super nomen
+	tag männ
+	tag bindestrich
+	rule s, *, "tab"
+	rule p, *, "tabs"
+	rule art, *, "tab"
+
+rules information
+	super nomen
+	tag weib
+	rule s, *, "information{über}"
+	rule p, *, "informationen{über}"
+	rule über, .über, " über <.über:akk>"
+	rule über, *, ""
+
+rules bereich
+	super nomen
+	tag männ
+	rule s, *, "bereich"
+	rule p, *, "bereiche"
+	rule p_dat, *, "bereichen"
+
+rules musik
+	super nomen
+	tag weib
+	tag singular
+	rule s, *, "musik"
+	rule p, *, "musik"
+
+rules einkaufswagen
+	super nomen
+	tag männ
+	rule s, *, "einkaufswagen"
+	rule p, *, "einkaufswagen"
+
+rules knopf
+	super nomen
+	tag männ
+	rule s, .befehl, ""<.befehl:keinpunkt>"-Knopf"
+	rule s, *, "knopf"
+	rule p, .befehl, ""<.befehl:keinpunkt>"-Knöpfe"
+	rule p, *, "knöpfe"
+
+rules name
+	super nomen
+	tag männ
+	rule s, *, "name"
+	rule p, *, "namen"
+	rule s_dat, *, "namen"
+	rule s_akk, *, "namen"
+
+rules benutzer
+	super nomen
+	tag männ
+	rule s, *, "benutzer"
+	rule p, *, "benutzer"
+
+rules sicherheitskopie
+	super nomen
+	tag weib
+	rule s, *, "sicherheitskopie"
+	rule p, *, "sicherheitskopien"
+
+rules ungenannt
+	rule akk, *, "..."
+	rule nom, *, "..."
+	rule dat, *, "..."
+	rule art, *, "..."
+
+rules jahreszahl
+	super nomen
+	tag weib
+	rule s, *, "jahreszahl{_vonbis}"
+	rule p, *, "jahreszahlen{_vonbis}"
+
+	rule _vonbis, (.von & .bis), " zwischen <.von:nom> und <.bis:nom>"
+	rule _vonbis, .von, " von mindestens <.von:nom>"
+	rule _vonbis, .bis, " bis höchstens <.bis:nom>"
+	rule _vonbis, *, ""
+
+rules bild
+	super nomen
+	tag säch
+	rule s, *, "bild"
+	rule p, *, "bilder"
+
+rules fenster
+	super nomen
+	tag säch
+	rule s, *, "fenster"
+	rule p, *, "fenster"
+
+rules browser
+	super nomen
+	tag männ
+	tag bindestrich
+	rule s, *, "browser"
+	rule p, *, "browser"
+
+rules datei
+	super nomen
+	tag weib
+	rule s, *, "datei"
+	rule p, *, "dateien"
+
+rules aktion_ding
+	super nomen
+	tag weib
+	rule s, *, "aktion"
+	rule p, *, "aktionen"
+
+rules musiktitel
+	super nomen
+	tag männ
+	rule s, *, "musiktitel"
+	rule p, *, "musiktitel"
+	rule p_dat, *, "musiktiteln"
+
+rules veränderung
+	super nomen
+	tag weib
+	rule s, *, "veränderung"
+	rule p, *, "veränderungen"
+	rule art, *, "veränderungs"
+
+rules text
+	super nomen
+	tag männ
+	tag singular
+	rule s, *, "text"
+	rule p, *, "text"
+
+rules grenze
+	super nomen
+	tag weib
+	rule s, *, "grenze"
+	rule p, *, "grenzen"
+
+rules absatz
+	super nomen
+	tag männ
+	rule s, *, "absatz"
+	rule p, *, "absätze"
+	rule p_dat, *, "absätzen"
+
+rules datenreihe
+	super nomen
+	tag weib
+	rule s, *, "datenreihe"
+	rule p, *, "datenreihen"
+
+rules hyperlink
+	super nomen
+	tag männ
+	tag bindestrich
+	rule s, *, "hyperlink"
+	rule p, *, "hyperlinks"
+	rule art, *, "hyperlink"
+
+rules URL
+	super nomen
+	tag säch
+	tag bindestrich
+	rule s, *, "URL"
+	rule p, *, "URLs"
+	rule art, *, "URL"
+
+rules bibliographie
+	super nomen
+	tag weib
+	tag bindestrich
+	rule s, *, "bibliographie"
+	rule p, *, "bibliographien"
+	rule art, *, "bibliographie"
+
+rules datenbank
+	super nomen
+	tag weib
+	rule s, *, "datenbank"
+	rule p, *, "datenbanken"
+
+rules bibliothek
+	super nomen
+	tag weib
+	rule s, *, "bibliothek"
+	rule p, *, "bibliotheken"
+	rule art, *, "bibliotheks"
+
+rules version
+	super nomen
+	tag weib
+	rule s, *, "version"
+	rule p, *, "versionen"
+	rule art, *, "versions"
+
+rules anzahl_dinge
+	super nomen
+	tag weib
+	tag singular
+	rule s, *, "anzahl{_von}"
+	rule p, *, "anzahl{_von}"
+	rule art, *, "anzahl-{von}"
+
+	rule _von, .von, " <.von:nom>"
+	rule _von, *, ""
+	rule von, .von, "<.von:nom>"
+	rule von, *, ""
+
+rules schritt
+	super nomen
+	tag männ
+	rule s, *, "schritt"
+	rule p, *, "schritte"
+	rule p_dat, *, "schritten"
+
+rules cache
+	super nomen
+	tag männ
+	rule s, *, "cache"
+	rule p, *, "caches"
+	rule art, *, "cache"
+
+rules a_pro_b
+	super nomen
+	tag säch
+	tag singular
+	rule s, (.a & .b), "<.a:nom> pro <.b:nom>"
+	rule s, .a, "<.a:nom> pro ?"
+	rule s, .b, "? pro <.b:nom>"
+	rule s, *, "? pro ?"
+
+rules speicher
+	super nomen
+	tag männ
+	tag singular
+	rule s, *, "speicher"
+	rule art, *, "speicher"
+
+rules objekt
+	super nomen
+	tag säch
+	rule s, *, "objekt"
+	rule p, *, "objekte"
+
+rules zwischenspeicher
+	super nomen
+	tag männ
+	tag bindestrich
+	rule s, *, "zwischenspeicher"
+	rule p, *, "zwischenspeicher"
+
+rules bearbeitung
+	super nomen
+	tag weib
+	tag singular
+	rule s, *, "bearbeitung"
+	rule p, *, "bearbeitung"
+	rule art, *, "bearbeitungs"
+
+rules druckermass
+	super nomen
+	tag säch
+	tag bindestrich
+	rule s, *, "druckermass"
+	rule p, *, "druckermasse"
+	rule art, *, "druckermass"
+
+rules formattierung
+	super nomen
+	tag weib
+	tag singular
+	rule s, *, "formattierung"
+	rule p, *, "formattierung"
+	rule art, *, "formattierungs"
+
+rules einzug
+	super nomen
+	tag männ
+	rule s, *, "einzug"
+	rule p, *, "einzüge"
+	rule art, *, "einzugs"
+
+rules eigenschaft_ding
+	super nomen
+	tag weib
+	rule s, *, "eigenschaft"
+	rule p, *, "eigenschaften"
+	rule art, *, "eigenschafts"
+
+rules pop_up_fenster
+	super nomen
+	tag säch
+	rule s, *, "pop-up-Fenster"
+	rule p, *, "pop-up-Fenster"
+
+rules download_ding
+	super nomen
+	tag säch
+	tag bindestrich
+	rule s, *, "download"
+	rule p, *, "downloads"
+	rule art, *, "download"
+
+rules manager
+	super nomen
+	tag männ
+	tag bindestrich
+	rule s, *, "manager"
+	rule p, *, "manager"
+
+rules schriftgrösse
+	super nomen
+	tag weib
+	rule s, *, "schriftgrösse"
+	rule p, *, "schriftgrössen"
+
+rules verknüpfung
+	super nomen
+	tag weib
+	rule s, *, "verknüpfung{_zu}"
+	rule p, *, "verknüpfungen{_zu}"
+
+	rule _zu, .zu, " zu <.zu:dat>"
+	rule _zu, *, ""
+
+rules ordner
+	super nomen
+	tag männ
+	rule s, *, "ordner"
+	rule p, *, "ordner"
+
+rules fehlerkorrektur
+	super nomen
+	tag weib
+	rule s, *, "fehlerkorrektur"
+	rule p, *, "fehlerkorrekturen"
+
+rules lautstärke
+	super nomen
+	tag weib
+	rule s, *, "lautstärke"
+	rule p, *, "lautstärken"
+
+rules CD
+	super nomen
+	tag weib
+	tag bindestrich
+	rule s, *, "CD"
+	rule p, *, "CDs"
+	rule art, *, "CD"
+
+
+
+
+//ARTEN
+rules druck-
+	rule art, *, "druck"
+
+rules grafik-
+	rule art, *, "grafik"
+
+rules stream-
+	tag bindestrich
+	rule art, *, "stream"
+
+rules audio-
+	tag bindestrich
+	rule art, *, "audio"
+
+
+
+//BEZEICHNUNGEN
+rules text_bezeichnung
+	rule *, *, "<.inhalt>"
+
+
+
+//ANZAHLEN
+rules mehrere
+	tag plural
+
+rules alle
+	tag plural
+	tag zeigen
+	tag spezifisch
+	rule *, *, "alle"
+	rule dat, *, "allen"
+
+rules verschiedene
+	tag plural
+	tag nach_welcher
+	tag zeigen
+	rule *, *, "verschiedene"
+	rule dat, *, "verschiedenen"
+	rule nach_welcher, *, "verschiedenen"
+	rule nach_welcher_dat, *, "verschiedenen"
+
+
+
+//ADJEKTIVE
+rules adjektiv
+	//verändert von kasus, numerus, geschlecht, artikel
+	//wobei der plural quasi ein 4. geschlecht ist
+
+	rule *, *, "{stamm}"
+
+	//nominativ bestimmt ("spezifisch")
+	rule nom, (^.anzahl[plural] & (^[spezifisch] | ^.welcher[spezifisch] | ^.anzahl[spezifisch])), "{adv}{stamm}en"
+	rule nom, (^[spezifisch] | ^.welcher[spezifisch] | ^.anzahl[spezifisch]), "{adv}{stamm}e"
+
+	//nominativ unbestimmt
+	rule nom, ^.anzahl[plural], "{adv}{stamm}e"
+	rule nom, ^[säch], "{adv}{stamm}es"
+	rule nom, ^[weib], "{adv}{stamm}e"
+	rule nom, *, "{adv}{stamm}er"
+
+	//akkusativ bestimmt
+	rule akk, (^.anzahl[plural] & (^[spezifisch] | ^.welcher[spezifisch] | ^.anzahl[spezifisch])), "{adv}{stamm}en"
+	rule akk, (^[säch] & (^[spezifisch] | ^.welcher[spezifisch] | ^.anzahl[spezifisch])), "{adv}{stamm}e"
+	rule akk, (^[weib] & (^[spezifisch] | ^.welcher[spezifisch] | ^.anzahl[spezifisch])), "{adv}{stamm}e"
+	rule akk, (^[spezifisch] | ^.welcher[spezifisch] | ^.anzahl[spezifisch]), "{adv}{stamm}en"
+
+	//akkusativ unbestimmt
+	rule akk, ^.anzahl[plural], "{adv}{stamm}e"
+	rule akk, ^[säch], "{adv}{stamm}es"
+	rule akk, ^[weib], "{adv}{stamm}e"
+	rule akk, *, "{adv}{stamm}en"
+
+	//dativ
+	rule dat, *, "{adv}{stamm}en"
+
+	//infinitiv sozusagen
+	rule *, *, "{adv}{stamm}"
+
+	//adverb
+	rule adv, .modifikator, "<.modifikator> "
+	rule adv, *, ""
+
+	rule _adv, .modifikator, " <.modifikator>"
+	rule _adv, *, ""
+
+
+rules generell
+	super adjektiv
+	rule stamm, *, "generell"
+
+rules extern
+	super adjektiv
+	rule stamm, *, "extern"
+
+rules gespeichert
+	super adjektiv
+	rule stamm, *, "gespeichert"
+
+rules global
+	super adjektiv
+	rule stamm, *, "global"
+
+rules ausgewählt
+	super adjektiv
+	rule stamm, *, "ausgewählt"
+
+rules spezifisch_für
+	super adjektiv
+	rule stamm, .für, "<.für:art>-spezifisch"
+	rule stamm, *, "spezifisch"
+
+rules gross
+	super adjektiv
+	rule stamm, *, "gross"
+
+rules wie_dieser
+	super adjektiv
+	rule stamm, *, "solch"
+
+rules versteckt
+	super adjektiv
+	rule stamm, *, "versteckt"
+
+rules hat_anzahl_stellen
+	super adjektiv
+	rule stamm, .anzahl[1], "einstellig"
+	rule stamm, .anzahl[2], "zweistellig"
+	rule stamm, .anzahl[3], "dreistellig"
+	rule stamm, .anzahl, "<.anzahl>-stellig"
+	rule stamm, *, "?-stellig"
+
+rules neu
+	super adjektiv
+	rule stamm, *, "neu"
+
+rules schnell
+	super adjektiv
+	rule stamm, *, "schnell"
+
+rules gekauft
+	super adjektiv
+	rule stamm, *, "gekauft"
+
+rules klein
+	super adjektiv
+	rule stamm, *, "klein"
+
+
+
+//ADVERBEN FÜR ADJEKTIVE
+rules neu_modifikator
+	rule *, *, "neu"
+
+//ADVERBEN FÜR VERBEN
+rules nochmals
+	rule *, *, "nochmals"
+
+//FRAGMENTE
+rules OK
+	rule *, *, "OK"
