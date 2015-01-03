@@ -1,7 +1,0 @@
-This is a multilingual natural language generator I wrote for my final year project at Cambridge.
-
-All source code in this repository is hereby licensed under the GPL v 3 license. Please contact david.stark@zarkonnen.com for further information. The Downloads area contains a compiled version of the generator and a PDF of the dissertation I wrote on it.
-
-NB that the data folder and input.txt need to be next to the jar of the generator for it to function. Also see command line options detailed in Generator.java.
-
-There is also an applet version at http://beardy.pod.me.uk/applet.html .
