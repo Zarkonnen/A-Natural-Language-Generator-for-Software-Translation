@@ -1,4 +1,4 @@
-# A Natural Language Generator for Software Translation
+## A Natural Language Generator for Software Translation
 
 This is a multilingual natural language generator I wrote for my final year project at Cambridge.
 
